@@ -18,13 +18,18 @@
   "homepage": "https://github.com/hoist/provisioner.hoi.io",
   "dependencies": {
     "async": "^0.9.0",
+    "chance": "^0.6.1",
+    "config": "^1.7.0",
     "good": "^4.0.0",
     "good-reporter": "^3.0.0",
+    "handlebars": "^2.0.0",
     "hapi": "^7.2.0",
     "hoek": "^2.8.1",
+    "hoist-model": "git://github.com/hoist/hoist-model",
     "joi": "^4.7.0",
     "json-stringify-safe": "5.0.x",
     "moment": "2.8.x",
-    "mongoose": "^3.8.18"
+    "mongoose": "^3.8.18",
+    "moniker": "^0.1.2"
   }
 }
