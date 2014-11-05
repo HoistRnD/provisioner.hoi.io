@@ -2,37 +2,33 @@ var mongoose = require('mongoose');
 var Application = require('hoist-model').Application;
 var Chance = require('chance');
 var chance = new Chance();
-
-
-
 var db = mongoose.connection;
-var Schema = mongoose.Schema;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
 mongoose.connect('mongodb://localhost/test',function(){
   var app1 = new Application({
-    organisation: chance.string(),
-      name: chance.string(),
+      organisation: '6uQUrDjcvLIuyXC0GaLD',
+      name: chance.word(),
       //url alias
       alias: 'fakeAlias',
       apiKey: chance.string(),
       //the app.hoi.io sub domain for hosting
       dataKey: chance.string(),
       anonymousPermissions: {
-        dev: ['devString'],
-        test: ['testString'],
-        live: ['liveString']
+        dev: ['dev permissions'],
+        test: ['test permissions'],
+        live: ['live permissions']
       },
       settings: {
-        dev:'Schema.Types.Mixed',
-        test: 'Schema.Types.Mixed',
-        live: 'Schema.Types.Mixed',
+        dev:'dev settings',
+        test: 'test settings',
+        live: 'live settings',
       },
       lastDeploy: {
-        dev: '01-01-1980',
-        test: '01-01-1980',
-        live: '01-01-1980'
+        dev: chance.birthday(),
+        test: chance.birthday(),
+        live: chance.birthday()
       },
   });
   app1.saveAsync()

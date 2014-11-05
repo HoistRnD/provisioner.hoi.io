@@ -1,23 +1,22 @@
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 mongoose.connect('localhost', 'test');
-var Application = require('hoist-model').Application;
+var Organisation = require('hoist-model').Organisation;
 
-var ApplicationController = function () {
+var OrganisationController = function () {
 
 };
 
-ApplicationController.prototype = {
+OrganisationController.prototype = {
   index: function (callback) {
-    // var apps = Application.find({_id : "yULtLxc6wcgsq259lnhY"});
-    Application.find({}, function (err, docs) {
+    Organisation.find({}, function (err, docs) {
       console.log(docs);
       callback(docs);
     });
   },
 
   // show: function (query) {
-  //   Application.find({query}, function (err, docs) {
+  //   Organisation.find({query}, function (err, docs) {
   //     console.log(docs)
   //   });
   // },
@@ -35,4 +34,4 @@ ApplicationController.prototype = {
   },
 };
 
-module.exports = ApplicationController;
+module.exports = OrganisationController;

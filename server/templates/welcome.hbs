@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 
 <html>
-<head></head>
+<head>
+
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script type = 'text/x-handlebars-template'>
+  $(document).ready(function() {
+    
+  });
+    
+  </script>
+
+</head>
 <body>
   <header>
     <p>Welcome<p>
+
   </header>
+  {{#list apps}}{{_id}} {{name}} {{organisation}} {{lastDeploy}}{{/list}}
 </body>
 </html>
