@@ -11,7 +11,7 @@ ApplicationController.prototype = {
   index: function (callback) {
     // var apps = Application.find({_id : "yULtLxc6wcgsq259lnhY"});
     Application.find({}, function (err, docs) {
-      console.log(docs);
+      // console.log(docs);
       callback(docs);
     });
   },
