@@ -2,22 +2,24 @@
 
 <html>
 <head>
-
-  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script type = 'text/x-handlebars-template'>
-  $(document).ready(function() {
-    
-  });
-    
-  </script>
-
+  
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <header>
     <p>Welcome<p>
 
   </header>
-  {{#list apps}}{{_id}} {{name}} {{organisation}} {{lastDeploy}}{{/list}}
- 
+  <div class = 'organisations'>
+    <p> Existing organisations: </p>
+    {{#organisationsList organisations}}Name: {{name}} {{/organisationsList}}
+  </div>
+  <div class = 'users'>
+    <p> Existing users: </p>
+    {{#usersList users}}{{_id}} {{organisations}} {{emailAddresses}} {{/usersList}}
+  </div>
+  <a href= '/apps/new'><button type="submit" formmethod="get" formaction="/apps/new">New App</button></a>
+  
 </body>
 </html>

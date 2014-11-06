@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
+</head>
+<body>
+  <header>
+    <p>New App<p>
+
+  </header>
+  <form action="/apps/create" method="post">
+  Please choose an organisation: {{#dropDown organisations}}{{name}}{{/dropDown}}
+  <br>
+  App name: <input type="text" name="appName" required><br>
+  Alias: <input type="text" name="alias" required><br>
+  Api Key: <input type="text" name="apiKey" required><br>
+  Data key: <input type="text" name="dataKey" required><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

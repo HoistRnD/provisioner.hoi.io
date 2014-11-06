@@ -8,12 +8,8 @@ var ApplicationController = function () {
 };
 
 ApplicationController.prototype = {
-  index: function (callback) {
-    // var apps = Application.find({_id : "yULtLxc6wcgsq259lnhY"});
-    Application.find({}, function (err, docs) {
-      // console.log(docs);
-      callback(docs);
-    });
+  index: function () {
+    return Application.findAsync({});
   },
 
   // show: function (query) {
@@ -22,8 +18,23 @@ ApplicationController.prototype = {
   //   });
   // },
 
-  create: function () {
-
+  create: function (options) {
+    var newApp = new Application({
+      organisation: options.organisation,
+      name: options.appName,
+      alias: options.alias,
+      apiKey: options.apiKey,
+      dataKey: options.dataKey
+    });
+    newApp.saveAsync()
+    .then(function() {
+      return Application.findAsync({name: options.name});
+    }).then(function(newApplication) {
+      console.log(newApplication);
+    }).catch(function(err) {
+      console.log(err);
+    })
+    return Application.findAsync({name:options.name});
   },
 
   update: function () {

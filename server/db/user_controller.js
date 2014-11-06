@@ -9,10 +9,7 @@ var UserController = function () {
 
 UserController.prototype = {
   index: function () {
-    User.find({}, function (err, docs) {
-      console.log(docs);
-      return docs;
-    });
+    return User.findAsync({});
   },
 
   // show: function (query) {

@@ -9,10 +9,7 @@ var OrganisationController = function () {
 
 OrganisationController.prototype = {
   index: function () {
-    Organisation.find({}, function (err, docs) {
-      console.log(docs);
-      return docs;
-    });
+    return Organisation.findAsync({});
   },
 
   // show: function (query) {

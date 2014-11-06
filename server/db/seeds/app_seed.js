@@ -37,6 +37,6 @@ mongoose.connect('mongodb://localhost/test',function(){
   }).then(function(applications){
     console.log(applications);
   }).catch(function(err){
-
+    console.log(err);
   });
 });
