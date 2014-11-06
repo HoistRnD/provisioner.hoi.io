@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 mongoose.connect('localhost', 'test');
 var Application = require('hoist-model').Application;
+var Sanitizer = require('./sanitizer.js')
+var sanitizer = new Sanitizer();
 
 var ApplicationController = function () {
 
@@ -12,19 +14,18 @@ ApplicationController.prototype = {
     return Application.findAsync({});
   },
 
-  // show: function (query) {
-  //   Application.find({query}, function (err, docs) {
-  //     console.log(docs)
-  //   });
-  // },
+  show: function (query) {
+    // Application.find(query, function (err, docs) {
+    //   console.log(docs)
+    // });
+    return  Application.findAsync(query);
+  },
 
   create: function (options) {
     var newApp = new Application({
       organisation: options.organisation,
       name: options.appName,
-      alias: options.alias,
-      apiKey: options.apiKey,
-      dataKey: options.dataKey
+      gitRepo: sanitizer.sanitize(options.appName)
     });
     newApp.saveAsync()
     .then(function() {

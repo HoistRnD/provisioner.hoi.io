@@ -38,14 +38,61 @@ server.route({
   }
 });
 
+// organisations =========================================
 server.route({
   method: 'GET',
-  path: '/apps/new',
+  path: '/organisations/{name}',
   handler: function (request, reply) {
-    return organisationController.index()
+    var organisation, apps;
+    return organisationController.show({name: request.params.name})
     .then(function (res) {
-      organisations = res
-      reply.view('new_app.hbs', {organisations: organisations})
+      organisation = res
+      return applicationController.show({organisation: organisation[0]._id})
+    }).then(function (res) {
+        apps = res
+        console.log(organisation)
+        reply.view('organisation.hbs', {organisation: organisation[0], apps: apps})
+    }).catch(function (err) {
+      console.log(err)
+    });
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/organisations/{name}/edit',
+  handler: function (request, reply) {
+    console.log(request.params.name)
+    var organisation;
+    return organisationController.show({name: request.params.name})
+    .then(function (res) {
+      organisation = res;
+      console.log(organisation)
+      reply.view('edit_organisation.hbs', {organisation: organisation[0]})
+    })
+  }
+});
+
+server.route({
+  method: 'POST',
+  path: '/organisations/{name}/update',
+  handler: function (request, reply) {
+    return organisationController.update({name: request.params.name, payload: request.payload}, function (docs) {
+      reply.redirect('/organisations/' + docs.name)
+    })
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/organisations/{name}/apps/new',
+  handler: function (request, reply) {
+    console.log(request.params.name)
+    return organisationController.show({name: request.params.name})
+    .then(function (res) {
+      organisation = res
+      console.log(res)
+      reply.view('new_app.hbs', {organisation: organisation[0]})
     }).catch(function (err) {
       console.log(err)
     });
@@ -54,12 +101,30 @@ server.route({
 
 server.route({
   method: 'POST',
-  path: '/apps/create',
+  path: '/organisations/{name}/apps/create',
   handler: function (request, reply) {
+    var org = request.params.name
     applicationController.create(request.payload)
     .then(function(newApp) {
       reply.redirect('/')
-    })
+    }).catch(function (err) {
+      console.log(err)
+    });
+  }
+});
+
+// apps =========================================
+server.route({
+  method: 'POST',
+  path: '/apps/{name}',
+  handler: function (request, reply) {
+    var org = request.params.name
+    applicationController.create(request.payload)
+    .then(function(newApp) {
+      reply.redirect('/')
+    }).catch(function (err) {
+      console.log(err)
+    });
   }
 });
 
@@ -67,23 +132,22 @@ server.start(function () {
   console.log('info', 'Server running at: ' + server.info.uri);
 });
 
-handlebars.registerHelper('table', function(items, options) {
-  var out = "<ul>";
-
-  for(var i=items.length -1; i>0; i--) {
-    out = out + "<li>" + options.fn(items[i]) + "</li>";
-  }
-
-  return out + "</ul>";
-});
-
 
 handlebars.registerHelper('usersList', function(items, options) {
   var out = "<ul>";
 
   for(var i=items.length -1; i>=0; i--) {
-    console.log(items[i].name)
     out = out + "<a href = '/users/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
+  }
+
+  return out + "</ul>";
+});
+
+handlebars.registerHelper('appsList', function(items, options) {
+  var out = "<ul>";
+
+  for(var i=items.length -1; i>=0; i--) {
+    out = out + "<a href = '/apps/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
   }
 
   return out + "</ul>";
@@ -93,7 +157,6 @@ handlebars.registerHelper('organisationsList', function(items, options) {
   var out = "<ul>";
 
   for(var i=items.length -1; i>=0; i--) {
-    console.log(items[i].name)
     out = out + "<a href = '/organisations/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
   }
 

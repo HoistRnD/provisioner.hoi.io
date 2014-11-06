@@ -11,15 +11,14 @@
     <p>New App<p>
 
   </header>
-  <form action="/apps/create" method="post">
-  Please choose an organisation: {{#dropDown organisations}}{{name}}{{/dropDown}}
-  <br>
-  App name: <input type="text" name="appName" required><br>
-  Alias: <input type="text" name="alias" required><br>
-  Api Key: <input type="text" name="apiKey" required><br>
-  Data key: <input type="text" name="dataKey" required><br>
-  <input type="submit" value="Submit">
-</form>
+  <form action="/organisations/{{organisation.name}}/apps/create" method="post">
+    Organisation: {{organisation.name}}
+    <br>
+    App Name: <input type="text" name="appName" required><br>
+    <input type="hidden" name = "organisation" value = "{{organisation._id}}"/>
+    
+    <input type="submit" value="Submit">
+  </form>
 
 </body>
 </html>

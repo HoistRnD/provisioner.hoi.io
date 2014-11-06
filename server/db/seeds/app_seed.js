@@ -10,10 +10,8 @@ mongoose.connect('mongodb://localhost/test',function(){
   var app1 = new Application({
       organisation: '6uQUrDjcvLIuyXC0GaLD',
       name: chance.word(),
-      //url alias
       alias: 'fakeAlias',
       apiKey: chance.string(),
-      //the app.hoi.io sub domain for hosting
       dataKey: chance.string(),
       anonymousPermissions: {
         dev: ['dev permissions'],

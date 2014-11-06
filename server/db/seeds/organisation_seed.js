@@ -18,5 +18,5 @@ mongoose.connect('mongodb://localhost/test',function(){
     console.log(organisations);
   }).catch(function(err){
 
-  });
+  });    
 });

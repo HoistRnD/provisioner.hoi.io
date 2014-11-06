@@ -2,14 +2,11 @@
 
 <html>
 <head>
-  
-  
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <header>
     <p>Welcome<p>
-
   </header>
   <div class = 'organisations'>
     <p> Existing organisations: </p>
@@ -19,7 +16,7 @@
     <p> Existing users: </p>
     {{#usersList users}}{{_id}} {{organisations}} {{emailAddresses}} {{/usersList}}
   </div>
-  <a href= '/apps/new'><button type="submit" formmethod="get" formaction="/apps/new">New App</button></a>
+  
   
 </body>
 </html>

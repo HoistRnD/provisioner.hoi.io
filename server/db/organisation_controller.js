@@ -12,18 +12,23 @@ OrganisationController.prototype = {
     return Organisation.findAsync({});
   },
 
-  // show: function (query) {
-  //   Organisation.find({query}, function (err, docs) {
-  //     console.log(docs)
-  //   });
-  // },
-
-  create: function () {
-
+  show: function (query) {
+    // Organisation.find(query, function (err, docs) {
+    //   console.log(docs)
+    // });
+    return Organisation.findAsync(query);
   },
 
-  update: function () {
+  create: function () {
+    
+  },
 
+  update: function (info, callback) {
+    var query = {name: info.name}
+    var update = info.payload;
+    Organisation.findOneAndUpdate(query, update, function (err, docs) {
+      callback(docs);
+    });
   },
 
   delete: function () {

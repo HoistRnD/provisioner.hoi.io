@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <header>
+    <p>Edit {{organisation.name}}<p>
+  </header>
+  <form action="/organisations/{{organisation.name}}/update" method="post">
+    Organisation name: <input type="text" name="name" value='{{organisation.name}}' required><br>
+    Git Folder: <input type="text" name="gitFolder" value='{{organisation.gitFolder}}' required><br>
+    <input type="submit" value="Submit">
+  </form>
+  
+</body>
+</html>

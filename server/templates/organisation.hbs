@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<body>
+  <header>
+    <h1>{{organisation.name}} Organisation<h1>
+  </header>
+  <a href= '/organisations/{{organisation.name}}/edit'><button type="submit" formmethod="get" formaction="/apps/{{organisation.name}}/edit">Edit {{organisation.name}}</button></a>
+  <div class = 'apps'>
+  <h2>Existing apps:</h2>
+    <p>{{#appsList apps}} {{name}} {{/appsList}}</p>
+    <a href= '/organisations/{{organisation.name}}/apps/new'><button type="submit" formmethod="get" formaction="/apps/new">New App</button></a>
+  </div>
+
+</body>
+</html>
