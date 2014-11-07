@@ -11,12 +11,12 @@
   <div class = 'organisations'>
     <p> Existing organisations: </p>
     {{#organisationsList organisations}}Name: {{name}} {{/organisationsList}}<br>
-     <a href= '/organisations/new'><button type="submit" formmethod="get">Edit {{user.name}}</button></a>
+     <a href= '/organisations/new'><button type="submit" formmethod="get">New Organisation</button></a>
   </div>
   <div class = 'users'>
     <p> Existing users: </p>
     {{#usersList users}}{{name}}{{/usersList}}<nr>
-     <a href= '/users/new'><button type="submit" formmethod="get">Edit {{user.name}}</button></a>
+     <a href= '/users/new'><button type="submit" formmethod="get">New User</button></a>
   </div>
   
   

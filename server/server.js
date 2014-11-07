@@ -102,6 +102,7 @@ server.route({
   method: 'GET',
   path: '/organisations/{name}/apps/new',
   handler: function (request, reply) {
+    var organisation;
     return organisationController.show({name: request.params.name})
     .then(function (res) {
       organisation = res;
@@ -187,6 +188,21 @@ server.route({
 
 server.route({
   method: 'GET',
+  path: '/users/new',
+  handler: function (request, reply) {
+    var organisation;
+    return organisationController.index();
+    .then(function (res) {
+      organisations = res;
+      reply.view('new_user.hbs', {organisations: organisations});
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+});
+
+server.route({
+  method: 'GET',
   path: '/users/{name}/edit',
   handler: function (request, reply) {
     var user, organisations;
@@ -217,7 +233,7 @@ server.route({
   method: 'GET',
   path: '/users/{name}/delete',
   handler: function (request, reply) {
-    return userController.delete({name: request.params.name}, function () {
+    return userController.delete({name: request.params.name}, function ( ) {
       reply.redirect('/');
     })
   }

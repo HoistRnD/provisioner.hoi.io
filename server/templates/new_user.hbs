@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <p>New User<p>
+
+  </header>
+  <form action="/users/create" method="post">
+    Name: <input type="text" name="name" required><br>
+    <br>
+    App Name: <input type="text" name="appName" required><br>
+    <input type="hidden" name = "organisation" value = "{{organisation._id}}"/>
+    
+    <input type="submit" value="Submit">
+  </form>
+
+</body>
+</html>
