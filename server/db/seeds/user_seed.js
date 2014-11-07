@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var User = require('hoist-model').User;
+var User = require('hoist-model').HoistUser;
 var Chance = require('chance');
 var chance = new Chance();
 var db = mongoose.connection;

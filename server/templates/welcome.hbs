@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-  <link rel="stylesheet" type="text/css" href="style.css">
+<head>  
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
   <header>
@@ -10,11 +10,13 @@
   </header>
   <div class = 'organisations'>
     <p> Existing organisations: </p>
-    {{#organisationsList organisations}}Name: {{name}} {{/organisationsList}}
+    {{#organisationsList organisations}}Name: {{name}} {{/organisationsList}}<br>
+     <a href= '/organisations/new'><button type="submit" formmethod="get">Edit {{user.name}}</button></a>
   </div>
   <div class = 'users'>
     <p> Existing users: </p>
-    {{#usersList users}}{{_id}} {{organisations}} {{emailAddresses}} {{/usersList}}
+    {{#usersList users}}{{name}}{{/usersList}}<nr>
+     <a href= '/users/new'><button type="submit" formmethod="get">Edit {{user.name}}</button></a>
   </div>
   
   

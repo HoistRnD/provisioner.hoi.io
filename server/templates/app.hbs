@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>{{app.name}} Application<h1>
+  </header>
+  Name: {{app.name}}<br>
+  Organisation: {{app.organisation}}<br>
+  Sub Domain: {{app.subDomain}}<br>
+  Api Key: {{app.apiKey}}<br>
+  Git Repo: {{app.gitRepo}}<br>
+  <a href= '/apps/{{app.name}}/edit'><button type="submit" formmethod="get">Edit {{app.name}}</button></a>
+  
+</body>
+</html>

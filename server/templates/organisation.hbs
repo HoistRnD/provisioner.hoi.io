@@ -2,13 +2,13 @@
 
 <html>
 <head>
-
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
   <header>
     <h1>{{organisation.name}} Organisation<h1>
   </header>
-  <a href= '/organisations/{{organisation.name}}/edit'><button type="submit" formmethod="get" formaction="/apps/{{organisation.name}}/edit">Edit {{organisation.name}}</button></a>
+  <a href= '/organisations/{{organisation.name}}/edit'><button type="submit" formmethod="get">Edit {{organisation.name}}</button></a>
   <div class = 'apps'>
   <h2>Existing apps:</h2>
     <p>{{#appsList apps}} {{name}} {{/appsList}}</p>

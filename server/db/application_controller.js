@@ -38,8 +38,12 @@ ApplicationController.prototype = {
     return Application.findAsync({name:options.name});
   },
 
-  update: function () {
-
+  update: function (info, callback) {
+    var query = {name: info.name}
+    var update = info.payload;
+    Application.findOneAndUpdate(query, update, function (err, docs) {
+      callback(docs);
+    });
   },
 
   delete: function () {

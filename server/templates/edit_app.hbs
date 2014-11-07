@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+  
+</head>
+<body>
+  <header>
+    <p>Edit {{app.name}}<p>
+  </header>
+  <form action="/apps/{{app.name}}/update" method="post">
+    App name: <input type="text" name="name" value='{{app.name}}' required><br>
+    Git Repo: <input type="text" name="gitRepo" value='{{app.gitRepo}}' required><br>
+    <input type="submit" value="Submit">
+  </form>
+  
+</body>
+</html>
