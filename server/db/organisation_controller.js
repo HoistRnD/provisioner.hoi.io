@@ -19,8 +19,20 @@ OrganisationController.prototype = {
     return Organisation.findAsync(query);
   },
 
-  create: function () {
-    
+  create: function (options) {
+    var newOrg = new Organisation({
+      name: options.name,
+      gitFolder: options.gitFolder
+    });
+    newOrg.saveAsync()
+    .then(function() {
+      return Organisation.findAsync({name: options.name});
+    }).then(function(newOrg) {
+      console.log(newOrg);
+    }).catch(function(err) {
+      console.log(err);
+    })
+    return Organisation.findAsync({name:options.name});
   },
 
   update: function (info, callback) {

@@ -89,6 +89,27 @@ server.route({
 });
 
 server.route({
+  method: 'GET',
+  path: '/organisations/new',
+  handler: function (request, reply) {
+    reply.view('new_organisation.hbs');
+  }
+});
+
+server.route({
+  method: 'POST',
+  path: '/organisations/create',
+  handler: function (request, reply) {
+    return organisationController.create(request.payload)
+    .then(function(newOrganisation) {
+      reply.redirect('/');
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+});
+
+server.route({
   method: 'POST',
   path: '/organisations/{name}/update',
   handler: function (request, reply) {
@@ -190,11 +211,24 @@ server.route({
   method: 'GET',
   path: '/users/new',
   handler: function (request, reply) {
-    var organisation;
-    return organisationController.index();
+    var organisations;
+    return organisationController.index()
     .then(function (res) {
       organisations = res;
       reply.view('new_user.hbs', {organisations: organisations});
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+});
+
+server.route({
+  method: 'POST',
+  path: '/users/create',
+  handler: function (request, reply) {
+    return userController.create(request.payload)
+    .then(function(newUser) {
+      reply.redirect('/');
     }).catch(function (err) {
       console.log(err);
     });

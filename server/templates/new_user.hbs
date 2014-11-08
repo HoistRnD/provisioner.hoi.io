@@ -12,10 +12,10 @@
   </header>
   <form action="/users/create" method="post">
     Name: <input type="text" name="name" required><br>
-    <br>
-    App Name: <input type="text" name="appName" required><br>
-    <input type="hidden" name = "organisation" value = "{{organisation._id}}"/>
-    
+    Password: <input type="password" name="password" required><br>
+    Organisation: {{#addOrgDropDown organisations}}{{name}}{{/addOrgDropDown}}<br>
+    Email Address: <input type="text" name="emailAddress" required><br>
+
     <input type="submit" value="Submit">
   </form>
 

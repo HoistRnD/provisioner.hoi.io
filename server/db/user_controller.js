@@ -18,8 +18,22 @@ UserController.prototype = {
   },
 
 
-  create: function () {
-
+  create: function (options) {
+    var newUser = new User({
+      name: options.name,
+      organisations: [{_id: '6uQUrDjcvLIuyXC0GaLD'}],
+      emailAddresses: [{address: options.emailAddress}],
+      password: options.password
+    });
+    newUser.saveAsync()
+    .then(function() {
+      return User.findAsync({name: options.name});
+    }).then(function(newUser) {
+      console.log(newUser);
+    }).catch(function(err) {
+      console.log(err);
+    })
+    return User.findAsync({name:options.name});
   },
 
   update: function (info, callback) {
