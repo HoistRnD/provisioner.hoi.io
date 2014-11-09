@@ -46,9 +46,14 @@ ApplicationController.prototype = {
     });
   },
 
-  delete: function () {
-
-  },
+  delete: function (query, callback) {
+    Application.findOne(query, function (err, app) {
+      app.remove( function (err) {
+        console.log(err);
+        callback();
+      })
+    })
+  }
 };
 
 module.exports = ApplicationController;

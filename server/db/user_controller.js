@@ -95,7 +95,7 @@ UserController.prototype = {
         callback();
       })
     })
-  },
+  }
 };
 
 module.exports = UserController;

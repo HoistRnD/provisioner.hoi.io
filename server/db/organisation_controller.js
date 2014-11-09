@@ -43,9 +43,14 @@ OrganisationController.prototype = {
     });
   },
 
-  delete: function () {
-
-  },
+  delete: function (query, callback) {
+    Organisation.findOne(query, function (err, organisation) {
+      organisation.remove( function (err) {
+        console.log(err);
+        callback();
+      })
+    })
+  }
 };
 
 module.exports = OrganisationController;
