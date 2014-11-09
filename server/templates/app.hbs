@@ -6,14 +6,17 @@
 </head>
 <body>
   <header>
+    <a href= '/' id='home-buton'><button type="submit">Home</button></a>
     <h1>{{app.name}} Application<h1>
   </header>
   Name: {{app.name}}<br>
   Organisation: {{app.organisation}}<br>
   Sub Domain: {{app.subDomain}}<br>
   Api Key: {{app.apiKey}}<br>
+  Data Key: {{app.dataKey}}<br>
   Git Repo: {{app.gitRepo}}<br>
   <a href= '/apps/{{app.name}}/edit'><button type="submit" formmethod="get">Edit {{app.name}}</button></a>
+  <a href= '/apps/{{app.name}}/delete'><button type="submit" formmethod="get">Delete {{app.name}}</button></a>
   
 </body>
 </html>
