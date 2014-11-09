@@ -11,8 +11,8 @@ var server = new Hapi.Server(3000);
 module.exports = server;
 // require('./routes')(server);
 var handlebars = require('handlebars');
-var layouts = require('handlebars-layouts');
-layouts.register(handlebars);
+// var layouts = require('handlebars-layouts'(handlebars);
+// layouts.register(handlebars);
 var path = require('path');
 var fs = require("fs");
 
@@ -121,6 +121,16 @@ server.route({
 
 server.route({
   method: 'GET',
+  path: '/organisations/{name}/delete',
+  handler: function (request, reply) {
+    return organisationController.delete({name: request.params.name}, function ( ) {
+      reply.redirect('/');
+    })
+  }
+});
+
+server.route({
+  method: 'GET',
   path: '/organisations/{name}/apps/new',
   handler: function (request, reply) {
     var organisation;
@@ -185,6 +195,16 @@ server.route({
   handler: function (request, reply) {
     return applicationController.update({name: request.params.name, payload: request.payload}, function (docs) {
       reply.redirect('/apps/' + docs.name);
+    })
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/apps/{name}/delete',
+  handler: function (request, reply) {
+    return applicationController.delete({name: request.params.name}, function ( ) {
+      reply.redirect('/');
     })
   }
 });
@@ -274,10 +294,13 @@ server.route({
 });
 
 
-
+//  server start =========================================================================
 server.start(function () {
   console.log('info', 'Server running at: ' + server.info.uri);
 });
+
+
+//  handlebars reguster helpers ==========================================================
 
 // handlebars.registerPartial('layout', fs.readFileSync('./templates/layout.hbs', 'utf8'));
 
