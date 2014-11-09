@@ -10,6 +10,7 @@
   </header>
   <p>Git Folder: {{organisation.gitFolder}}</p>
   <a href= '/organisations/{{organisation.name}}/edit'><button type="submit" formmethod="get">Edit {{organisation.name}}</button></a>
+  <a href= '/organisations/{{organisation.name}}/delete'><button type="submit" formmethod="get">Delete {{organisation.name}}</button></a>
   <div class = 'apps'>
   <h2>Existing apps:</h2>
     <p>{{#appsList apps}} {{name}} {{/appsList}}</p>

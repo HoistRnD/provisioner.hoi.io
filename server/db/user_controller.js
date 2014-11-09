@@ -37,6 +37,7 @@ UserController.prototype = {
   },
 
   update: function (info, callback) {
+    console.log(info)
     var query = {name: info.name};
     var user;
     var update = info.payload;
@@ -47,18 +48,33 @@ UserController.prototype = {
       newOrg.push(update.organisation)
       newEmail.push(update.emailAddress)
       // if you add and delete at the same time what happens??
-      if ( _.difference(newOrg, user.organisations).length > 0) {
+      console.log(update.organisation)
+      if ( _.difference(newOrg, user.organisations).length > 0 && update.organisation !== '-') {
         user.organisations.push(update.organisation);
       }
       if (update.emailAddress && ( _.difference(newEmail, user.emailAddresses).length > 0)) {
         user.emailAddresses.push({address: update.emailAddress});
       }
       if (update.removeEmailAddress) {
-        console.log("remove")
-      var index =  user.emailAddresses.indexOf({address: update.removeEmailAddress})
-      console.log(index)
-        if (index >= 0) {
-           user.emailAddresses.splice(index, 1);
+        for (var i=0; i < user.emailAddresses.length; i++) {
+          console.log(user.emailAddresses[i]._id)
+          console.log( update.removeEmailAddress)
+          if (user.emailAddresses[i]._id == update.removeEmailAddress) {
+            console.log("if")
+            user.emailAddresses.splice(i, 1);
+          }
+        }
+      }
+
+      if (update.removeOrganisation) {
+        console.log("remove org")
+        for (var i=0; i < user.organisations.length; i++) {
+          console.log(user.organisations[i])
+          console.log( update.removeOrganisation)
+          if (user.organisations[i] == update.removeOrganisation) {
+            console.log("if org")
+            user.organisations.splice(i, 1);
+          }
         }
       }
       user.name = update.name

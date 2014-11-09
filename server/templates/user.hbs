@@ -10,7 +10,7 @@
   </header>
   Name: {{user.name}}<br>
   Organisations: {{user.organisations}}<br>
-  Email Addresses: {{user.emailAddresses}}<br>
+  Email Addresses: {{#userEmailsList user.emailAddresses}} {{address}} {{/userEmailsDropDown}}<br>
   <a href= '/users/{{user.name}}/edit'><button type="submit" formmethod="get">Edit {{user.name}}</button></a>
   <a href= '/users/{{user.name}}/delete'><button type="submit" formmethod="get">Delete {{user.name}}</button></a>
   

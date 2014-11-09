@@ -325,7 +325,7 @@ handlebars.registerHelper('list', function(items, options) {
 
 
 handlebars.registerHelper('addOrgDropDown', function(items, options) {
-  var out = "<select name = 'organisation'>";
+  var out = "<select name = 'organisation'><option>- </option>";
 
   for(var i=0, l=items.length; i<l; i++) {
     out = out + "<option value='" + items[i]._id + "'>" + options.fn(items[i]) + "</option>";
@@ -338,18 +338,28 @@ handlebars.registerHelper('removeEmailDropDown', function(items, options) {
   var out = "<select name = 'removeEmailAddress'><option>- </option>";
 
   for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<option value='" + items[i] + "'>" + options.fn(items[i]) + "</option>";
+    out = out + "<option value='" + items[i]._id + "'>" + options.fn(items[i]) + "</option>";
   }
 
   return out + "</select>";
 });
 
 handlebars.registerHelper('removeOrgDropDown', function(items, options) {
-  var out = "<select name = 'removeOrganisation'>";
+  var out = "<select name = 'removeOrganisation'><option>- </option>";
 
   for(var i=0, l=items.length; i<l; i++) {
     out = out + "<option value='" + items[i]._id + "'>" + options.fn(items[i]) + "</option>";
   }
 
   return out + "</select>";
+});
+
+handlebars.registerHelper('userEmailsList', function(items, options) {
+  var out = "<p>";
+
+  for(var i=0, l=items.length; i<l; i++) {
+    out = out +  options.fn(items[i]) + ", ";
+  }
+
+  return out + "</p>";
 });
