@@ -24,6 +24,7 @@ server.views({
       hbs: handlebars
     },
     path: path.join(__dirname, '/templates'),
+    layoutPath: path.join(__dirname, '/templates')
 });
 
 organisationRoutes(server);
@@ -62,7 +63,7 @@ server.route({
       return userController.index()
     }).then(function (res) {
       users = res
-      reply.view('welcome.hbs', {organisations: organisations, users: users})
+      reply.view('welcome.hbs', {organisations: organisations, users: users}, {layout: 'layout'})
     }).catch(function (err) {
       console.log(err)
     });

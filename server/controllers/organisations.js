@@ -16,7 +16,7 @@ module.exports = function (server) {
         return applicationController.show({organisation: organisation[0]._id})
       }).then(function (res) {
           apps = res
-          reply.view('organisation.hbs', {organisation: organisation[0], apps: apps})
+          reply.view('organisation.hbs', {organisation: organisation[0], apps: apps}, {layout: 'layout'})
       }).catch(function (err) {
         console.log(err)
       });
@@ -31,7 +31,7 @@ module.exports = function (server) {
       return organisationController.show({name: request.params.name})
       .then(function (res) {
         organisation = res;
-        reply.view('edit_organisation.hbs', {organisation: organisation[0]});
+        reply.view('edit_organisation.hbs', {organisation: organisation[0]}, {layout: 'layout'});
       })
     }
   });
@@ -40,7 +40,7 @@ module.exports = function (server) {
     method: 'GET',
     path: '/organisations/new',
     handler: function (request, reply) {
-      reply.view('new_organisation.hbs');
+      reply.view('new_organisation.hbs', {title: 'New Organisation'}, {layout: 'layout'});
     }
   });
 
@@ -85,7 +85,7 @@ module.exports = function (server) {
       return organisationController.show({name: request.params.name})
       .then(function (res) {
         organisation = res;
-        reply.view('new_app.hbs', {organisation: organisation[0]});
+        reply.view('new_app.hbs', {organisation: organisation[0]}, {layout: 'layout'});
       }).catch(function (err) {
         console.log(err);
       });

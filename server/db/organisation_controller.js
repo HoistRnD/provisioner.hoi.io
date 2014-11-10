@@ -12,24 +12,15 @@ OrganisationController.prototype = {
     return Organisation.findAsync(query);
   },
 
-  findMany: function (array) {
-    for (var i=0; i < array.length; i++) {
-      
-    }
-  },
-
   create: function (options) {
     var newOrg = new Organisation({
       name: options.name,
       gitFolder: options.gitFolder
     });
-    newOrg.saveAsync()
-    .then(function() {
-      return Organisation.findAsync({name: options.name});
-    }).catch(function(err) {
+    return newOrg.saveAsync()
+    .catch(function(err) {
       console.log(err);
     })
-    return Organisation.findAsync({name:options.name});
   },
 
   update: function (info, callback) {

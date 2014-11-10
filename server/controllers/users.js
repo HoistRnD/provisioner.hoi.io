@@ -2,6 +2,8 @@ var UserController = require('../db/user_controller.js');
 var userController = new UserController();
 var OrganisationController = require('../db/organisation_controller.js');
 var organisationController = new OrganisationController();
+var BBPromise = require('bluebird')
+var _ = require('lodash')
 
 module.exports = function (server) {
   // users =========================================
@@ -9,7 +11,7 @@ module.exports = function (server) {
   method: 'GET',
   path: '/users/{name}',
   handler: function (request, reply) {
-    var user;
+    var user, orgNames;
     var organisations = []
     userController.show({name: request.params.name})
     .then(function(res) {
@@ -17,10 +19,10 @@ module.exports = function (server) {
       for (var i=0; i < user.organisations.length; i++) {
         organisations.push(organisationController.show({_id: user.organisations[i]}))
       }
-      // Promise.all(organisations)
+      return BBPromise.all(organisations)
     }).then(function(res) {
-    
-      reply.view('user.hbs', {user: user });
+      orgNames = _.flatten(res)
+      reply.view('user.hbs', {user: user, orgNames: orgNames }, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
     });
@@ -35,7 +37,7 @@ server.route({
     return organisationController.index()
     .then(function (res) {
       organisations = res;
-      reply.view('new_user.hbs', {organisations: organisations});
+      reply.view('new_user.hbs', {organisations: organisations}, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
     });
@@ -66,7 +68,7 @@ server.route({
       return organisationController.index()
     }).then(function (res) {
       organisations = res;
-      reply.view('edit_user.hbs', {user: user[0], organisations: organisations});
+      reply.view('edit_user.hbs', {user: user[0], organisations: organisations}, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
     });

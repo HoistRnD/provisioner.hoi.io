@@ -16,7 +16,7 @@ module.exports = function (server) {
       return organisationController.show({_id: app.organisation})
     }).then(function(res) {
       orgName = res[0].name
-      reply.view('app.hbs', {app: app, organisation: orgName});
+      reply.view('app.hbs', {app: app, organisation: orgName}, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
     });
@@ -27,13 +27,17 @@ server.route({
   method: 'GET',
   path: '/apps/{name}/edit',
   handler: function (request, reply) {
-    var app;
+    var app, orgs, orgName;
     return applicationController.show({name: request.params.name})
     .then(function (res) {
-      app = res;
+      app = res[0];
       return organisationController.index()
-    }).then(function (orgs) {
-      reply.view('edit_app.hbs', {app: app[0], organisations: orgs});
+    }).then(function (res) {
+      orgs = res
+      return organisationController.show({_id: app.organisation})
+    }).then(function (res) {
+      orgName = res[0].name
+      reply.view('edit_app.hbs', {app: app, organisations: orgs, orgName: orgName}, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
     });

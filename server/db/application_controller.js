@@ -24,15 +24,10 @@ ApplicationController.prototype = {
       name: options.appName,
       gitRepo: sanitizer.sanitize(options.appName)
     });
-    newApp.saveAsync()
-    .then(function() {
-      return Application.findAsync({name: options.name});
-    }).then(function(newApplication) {
-      console.log(newApplication);
-    }).catch(function(err) {
+    return newApp.saveAsync()
+    .catch(function(err) {
       console.log(err);
     })
-    return Application.findAsync({name:options.name});
   },
 
   update: function (info, callback) {
