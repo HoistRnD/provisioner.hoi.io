@@ -1,5 +1,4 @@
 var Hapi = require('hapi');
-// var Good = require('good');
 var OrganisationController = require('./db/organisation_controller.js');
 var UserController = require('./db/user_controller.js');
 var organisationController = new OrganisationController();
@@ -9,15 +8,8 @@ module.exports = server;
 var organisationRoutes = require('./controllers/organisations');
 var userRoutes = require('./controllers/users');
 var applicationRoutes = require('./controllers/apps');
-
-// require('./routes')(server);
 var handlebars = require('handlebars');
-// var layouts = require('handlebars-layouts'(handlebars);
-// layouts.register(handlebars);
 var path = require('path');
-var fs = require("fs");
-var Promise = require("node-promise").Promise;
-
 
 server.views({
     engines: {
@@ -59,13 +51,13 @@ server.route({
     var users, organisations;
     return organisationController.index()
     .then(function (res) {
-      organisations = res
-      return userController.index()
+      organisations = res;
+      return userController.index();
     }).then(function (res) {
-      users = res
-      reply.view('welcome.hbs', {organisations: organisations, users: users}, {layout: 'layout'})
+      users = res;
+      reply.view('welcome.hbs', {organisations: organisations, users: users}, {layout: 'layout'});
     }).catch(function (err) {
-      console.log(err)
+      console.log(err);
     });
   }
 });
@@ -81,46 +73,46 @@ server.start(function () {
 // handlebars.registerPartial('layout', fs.readFileSync('./templates/layout.hbs', 'utf8'));
 
 
-handlebars.registerHelper('usersList', function(items, options) {
-  var out = "<ul>";
+// handlebars.registerHelper('usersList', function(items, options) {
+//   var out = "<ul>";
 
-  for(var i=items.length -1; i>=0; i--) {
-    out = out + "<a href = '/users/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
-  }
+//   for(var i=items.length -1; i>=0; i--) {
+//     out = out + "<a href = '/users/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
+//   }
 
-  return out + "</ul>";
-});
+//   return out + "</ul>";
+// });
 
-handlebars.registerHelper('appsList', function(items, options) {
-  var out = "<ul>";
+// handlebars.registerHelper('appsList', function(items, options) {
+//   var out = "<ul>";
 
-  for(var i=items.length -1; i>=0; i--) {
-    out = out + "<a href = '/apps/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
-  }
+//   for(var i=items.length -1; i>=0; i--) {
+//     out = out + "<a href = '/apps/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
+//   }
 
-  return out + "</ul>";
-});
+//   return out + "</ul>";
+// });
 
-handlebars.registerHelper('organisationsList', function(items, options) {
-  var out = "<ul>";
+// handlebars.registerHelper('organisationsList', function(items, options) {
+//   var out = "<ul>";
 
-  for(var i=items.length -1; i>=0; i--) {
-    out = out + "<a href = '/organisations/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
-  }
+//   for(var i=items.length -1; i>=0; i--) {
+//     out = out + "<a href = '/organisations/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
+//   }
 
-  return out + "</ul>";
-});
+//   return out + "</ul>";
+// });
 
 
-handlebars.registerHelper('list', function(items, options) {
-  var out = "<ul>";
+// handlebars.registerHelper('list', function(items, options) {
+//   var out = "<ul>";
 
-  for(var i=items.length -1; i>=0; i--) {
-    out = out + "<li>" + options.fn(items[i]) + "</li>";
-  }
+//   for(var i=items.length -1; i>=0; i--) {
+//     out = out + "<li>" + options.fn(items[i]) + "</li>";
+//   }
 
-  return out + "</ul>";
-});
+//   return out + "</ul>";
+// });
 
 
 handlebars.registerHelper('addOrgDropDown', function(items, options) {
@@ -153,12 +145,12 @@ handlebars.registerHelper('removeOrgDropDown', function(items, options) {
   return out + "</select>";
 });
 
-handlebars.registerHelper('userEmailsList', function(items, options) {
-  var out = "<p>";
+// handlebars.registerHelper('userEmailsList', function(items, options) {
+//   var out = "<p>";
 
-  for(var i=0, l=items.length; i<l; i++) {
-    out = out +  options.fn(items[i]) + ", ";
-  }
+//   for(var i=0, l=items.length; i<l; i++) {
+//     out = out +  options.fn(items[i]) + ", ";
+//   }
 
-  return out + "</p>";
-});
+//   return out + "</p>";
+// });
