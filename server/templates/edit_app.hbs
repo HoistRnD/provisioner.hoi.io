@@ -6,19 +6,26 @@
   
 </head>
 <body>
-  <header>
-    <a href= '/' id='home-buton'><button type="submit">Home</button></a>
-    <p>Edit {{app.name}}<p>
-  </header>
-  <form action="/apps/{{app.name}}/update" method="post">
-    App name: <input type="text" name="name" value='{{app.name}}' required><br>
-    Sub-Domain: <input type="text" name="subDomain" value='{{app.subDomain}}' required><br>
-    Api Key: <input type="text" name="apiKey" value='{{app.apiKey}}' required><br>
-    Data Key: <input type="text" name="dataKey" value='{{app.dataKey}}' required><br>
-    Git Repo: <input type="text" name="gitRepo" value='{{app.gitRepo}}' required><br>
-  
-    <input type="submit" value="Submit">
-  </form>
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">Edit {{app.name}}</span>
+        </div>
+        <div class="body">
+          <form action="/apps/{{app.name}}/update" method="POST">
+            Change Organisation: {{#addOrgDropDown organisations}}{{name}}{{/addOrgDropDown}}<br>
+            App name: <input type="text" name="name" value='{{app.name}}' required><br>
+            Sub-Domain: <input type="text" name="subDomain" value='{{app.subDomain}}' required><br>
+            Api Key: <input type="text" name="apiKey" value='{{app.apiKey}}' required><br>
+            Data Key: <input type="text" name="dataKey" value='{{app.dataKey}}' required><br>
+            Git Repo: <input type="text" name="gitRepo" value='{{app.gitRepo}}' required><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   
 </body>
 </html>

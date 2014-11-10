@@ -6,18 +6,24 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-  <header>
-    <a href= '/' id='home-buton'><button type="submit">Home</button></a>
-    <p>New User<p>
-  </header>
-  <form action="/users/create" method="post">
-    Name: <input type="text" name="name" required><br>
-    Password: <input type="password" name="password" required><br>
-    Organisation: {{#addOrgDropDown organisations}}{{name}}{{/addOrgDropDown}}<br>
-    Email Address: <input type="text" name="emailAddress" required><br>
-
-    <input type="submit" value="Submit">
-  </form>
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">New User</span>
+        </div>
+        <div class="body">
+          <form action="/users/create" method="POST">
+            Name: <input type="text" name="name" required><br>
+            Password: <input type="password" name="password" required><br>
+            Organisation: {{#addOrgDropDown organisations}}{{name}}{{/addOrgDropDown}}<br>
+            Email Address: <input type="text" name="emailAddress" required><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -6,15 +6,22 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-  <header>
-    <a href= '/' id='home-buton'><button type="submit">Home</button></a>    
-    <p>New Organisation<p>
-  </header>
-  <form action="/organisations/create" method="post">
-    Name: <input type="text" name="name" required><br>
-    Git Folder: <input type="text" name="gitFolder" required><br>
-    <input type="submit" value="Submit">
-  </form>
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">New Organisation</span>
+        </div>
+        <div class="body">
+          <form action="/organisations/create" method="POST">
+            Name: <input type="text" name="name" required><br>
+            Git Folder: <input type="text" name="gitFolder" required><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

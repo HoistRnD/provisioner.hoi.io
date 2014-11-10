@@ -2,22 +2,42 @@
 
 <html>
 <head>
-
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 <body>
-  <header>
-    <a href= '/' id='home-buton'><button type="submit">Home</button></a>
-    <p>New App<p>
-  </header>
-  <form action="/organisations/{{organisation.name}}/apps/create" method="post">
-    Organisation: {{organisation.name}}
-    <br>
-    App Name: <input type="text" name="appName" required><br>
-    <input type="hidden" name = "organisation" value = "{{organisation._id}}"/>
-    
-    <input type="submit" value="Submit">
-  </form>
+
+ <div class="page-header">
+
+  <nav class="cf">
+    <ul class="left-options">
+      <li class="home active">
+        <a href="/"><span class="icon icon-home"></span>Home</a>
+      </li>
+      <li class="line-break">&nbsp;</li>
+    </ul>
+  </nav>
+</div>
+
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">New Application</span>
+        </div>
+        <div class="body">
+          <form action="/organisations/{{organisation.name}}/apps/create" method="POST">
+            Organisation: {{organisation.name}}
+            <br>
+            App Name: <input type="text" name="appName" required><br>
+            <input type="hidden" name = "organisation" value = "{{organisation._id}}"/>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

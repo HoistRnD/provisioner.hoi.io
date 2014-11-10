@@ -5,18 +5,25 @@
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-  <header>
-    <a href= '/' id='home-buton'><button type="submit">Home</button></a>
-    <h1>{{app.name}} Application<h1>
-  </header>
-  Name: {{app.name}}<br>
-  Organisation: {{app.organisation}}<br>
-  Sub Domain: {{app.subDomain}}<br>
-  Api Key: {{app.apiKey}}<br>
-  Data Key: {{app.dataKey}}<br>
-  Git Repo: {{app.gitRepo}}<br>
-  <a href= '/apps/{{app.name}}/edit'><button type="submit" formmethod="get">Edit {{app.name}}</button></a>
-  <a href= '/apps/{{app.name}}/delete'><button type="submit" formmethod="get">Delete {{app.name}}</button></a>
   
+
+
+  <div class="col col2">
+    <div class="panel">
+      <div class="head">
+        <span class="label">{{app.name}}</span>
+      </div>
+      <div class="body fixed large">
+          <span class="entry "><span class="content">Organisation: {{organisation}}</span></span>
+          <span class="entry "><span class="content">Sub Domain: {{app.subDomain}}</span></span>
+          <span class="entry "><span class="content">Api Key: {{app.apiKey}}</span></span>
+          <span class="entry "><span class="content">Data Key: {{app.dataKey}}</span></span>
+          <span class="entry "><span class="content">Git Repo: {{app.gitRepo}}</span></span>
+          <span class="action"><a href='/apps/{{app.name}}/edit' class="action-link add">Edit {{app.name}}</a></span>
+          <span class="action"><a href='/apps/{{app.name}}/delete' class="action-link delete">Delete {{app.name}}</a></span>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
