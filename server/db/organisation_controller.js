@@ -1,10 +1,6 @@
-// var mongoose = require('mongoose');
-// var db = mongoose.connection;
-// mongoose.connect('localhost', 'test');
 var Organisation = require('hoist-model').Organisation;
 
 var OrganisationController = function () {
-
 };
 
 OrganisationController.prototype = {
@@ -13,10 +9,13 @@ OrganisationController.prototype = {
   },
 
   show: function (query) {
-    // Organisation.find(query, function (err, docs) {
-    //   console.log(docs)
-    // });
     return Organisation.findAsync(query);
+  },
+
+  findMany: function (array) {
+    for (var i=0; i < array.length; i++) {
+      
+    }
   },
 
   create: function (options) {
@@ -27,8 +26,6 @@ OrganisationController.prototype = {
     newOrg.saveAsync()
     .then(function() {
       return Organisation.findAsync({name: options.name});
-    }).then(function(newOrg) {
-      console.log(newOrg);
     }).catch(function(err) {
       console.log(err);
     })

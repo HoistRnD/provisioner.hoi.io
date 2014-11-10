@@ -1,11 +1,7 @@
-// var mongoose = require('mongoose');
-// var db = mongoose.connection;
-// mongoose.connect('localhost', 'test');
 var _ = require('lodash');
 var User = require('hoist-model').HoistUser;
 
 var UserController = function () {
-
 };
 
 UserController.prototype = {
@@ -26,13 +22,11 @@ UserController.prototype = {
       password: options.password
     });
     newUser.saveAsync()
-    .then(function() {
-      return User.findAsync({name: options.name});
-    }).then(function(newUser) {
-      console.log(newUser);
-    }).catch(function(err) {
-      console.log(err);
-    })
+    // .then(function() {
+    //   return User.findAsync({name: options.name});
+    // }).catch(function(err) {
+    //   console.log(err);
+    // })
     return User.findAsync({name:options.name});
   },
 
@@ -83,9 +77,6 @@ UserController.prototype = {
       callback(user);
       })
     });
-  //   User.findOneAndUpdate(query, update, function (err, docs) {
-  //     callback(docs);
-  //   });
   },
 
   delete: function (query, callback) {

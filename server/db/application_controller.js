@@ -15,9 +15,6 @@ ApplicationController.prototype = {
   },
 
   show: function (query) {
-    // Application.find(query, function (err, docs) {
-    //   console.log(docs)
-    // });
     return  Application.findAsync(query);
   },
 
@@ -41,6 +38,9 @@ ApplicationController.prototype = {
   update: function (info, callback) {
     var query = {name: info.name}
     var update = info.payload;
+    if (update.organisation == '-') {
+      delete update.organisation
+    }
     Application.findOneAndUpdate(query, update, function (err, docs) {
       callback(docs);
     });
