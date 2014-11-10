@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-
-<html>
-<head>  
-<link rel="stylesheet" type="text/css" href="/css/normalize.css">
-<link rel="stylesheet" type="text/css" href="/css/style.css">
-</head>
-<body>
-   <div class="page-header">
-
-    <nav class="cf">
-      <ul class="left-options">
-        <li class="home active">
-          <a href="/"><span class="icon icon-home"></span>Home</a>
-        </li>
-        <li class="line-break">&nbsp;</li>
-      </ul>
-    </nav>
-  </div>
-
-    
-
   <div class="container cf">
     <div class="col col2">
       <div class="panel">
@@ -27,7 +5,7 @@
           <span class="label">Existing Organisations</span>
           <span class="action"><a href="/organisations/new" class="action-link add">Add New Organisation</a></span>
         </div>
-        <div class="body fixed small">
+        <div class="body fixed large">
           {{#each organisations}}
           <span class="entry">
             <span class="content">
@@ -44,7 +22,7 @@
           <span class="label">Existing Users</span>
           <span class="action"><a href="/users/new" class="action-link add">Add New User</a></span>
         </div>
-        <div class="body fixed small">
+        <div class="body fixed large">
           {{#each users}}
           <span class="entry">
             <span class="content">
@@ -56,9 +34,3 @@
       </div>
     </div>
   </div>
-  
-</body>
-</html>
-
-
-

@@ -1,68 +1,29 @@
 <!DOCTYPE html>
 
 <html>
+<head>  
+<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<title>{{title}}</title>
+</head>
+<body>
+   <div class="page-header">
 
-  <head>
-    <link href="/static/css/style.css" rel="stylesheet" />
-    <title>Provisoner</title>
-  </head>
+    <nav class="cf">
+      <ul class="left-options">
+        <li class="home active">
+          <a href="/"><span class="icon icon-home"></span>Home</a>
+        </li>
+        <li class="line-break">&nbsp;</li>
+      </ul>
+    </nav>
+  </div>
 
-  <body>
-
-    <div class="page-header">
-
-      <nav class="cf">
-        <ul class="left-options">
-          <li class="home {{#if isHome}}active{{/if}}">
-            <a href="/"><span class="icon icon-home"></span>Home</a>
-          </li>
-          <li class="docs {{#if isDocs}}active{{/if}}">
-            <a href="/docs"><span class="icon icon-docs"></span>Docs</a>
-          </li>
-          <li class="line-break">&nbsp;</li>
-        </ul>
-        <ul class="right-options">
-          <li class="line-break">&nbsp;</li>
-          <li class="users {{#if isUsers}}active{{/if}}">
-            <a href="/users"><span class="icon icon-users"></span>Users</a>
-          </li>
-          <li class="line-break line-break-profile">&nbsp;</li>
-          <li class="profile"><a href="/account">Jamie<span class="icon icon-profile"></span></a></li>
-        </ul>
-      </nav>
-
-      {{#if showDocsBreadcrumb}}
-        {{> help-breadcrumb}}
-      {{/if}}
-
-    </div>
     
     {{{content}}}
 
     <footer>
       <div class="container cf">
-
-        <div class="col col1">
-          <ul>
-            <li class="header">Product</li>
-            <li><a href="#">Pricing</a></li>
-          </ul>
-          <ul>
-            <li class="header">Company</li>
-            <li><a href="#">Blog</a></li>
-          </ul>
-        </div>
-        <div class="col col1">
-          <ul>
-            <li class="header">Legal</li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Privacy</a></li>
-          </ul>
-          <ul>
-            <li class="header">Help &amp; Support</li>
-            <li><a href="#">Contact Us</a></li>
-          </ul>
-        </div>
       </div>
     </footer>
 

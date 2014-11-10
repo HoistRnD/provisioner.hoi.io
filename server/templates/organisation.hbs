@@ -1,22 +1,24 @@
-<!DOCTYPE html>
 
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-</head>
-<body>
-  <header>
-    <a href= '/' id='home-buton'><button type="submit">Home</button></a>
-    <h1>{{organisation.name}} Organisation<h1>
-  </header>
-  <p>Git Folder: {{organisation.gitFolder}}</p>
-  <a href= '/organisations/{{organisation.name}}/edit'><button type="submit" formmethod="get">Edit {{organisation.name}}</button></a>
-  <a href= '/organisations/{{organisation.name}}/delete'><button type="submit" formmethod="get">Delete {{organisation.name}}</button></a>
-  <div class = 'apps'>
-  <h2>Existing apps:</h2>
-    <p>{{#appsList apps}} {{name}} {{/appsList}}</p>
-    <a href= '/organisations/{{organisation.name}}/apps/new'><button type="submit" formmethod="get" formaction="/apps/new">New App</button></a>
+<div class="container cf">
+  <div class="col col2">
+    <div class="panel">
+      <div class="head">
+        <span class="label">{{organisation.name}}</span>
+      </div>
+      <div class="body fixed large">
+          <span class="entry "><span class="content">Git Folder: {{organisation.gitFolder}}</span></span>
+          <span class="action"><a href='/organisations/{{organisation.name}}/edit' class="action-link add">Edit {{organisation.name}}</a></span>
+          <span class="action"><a href='/organisations/{{organisation.name}}/delete' class="action-link delete">Delete {{organisation.name}}</a></span><br>
+          <span class="entry "><span class="content">Existing Apps</span></span>
+          {{#each apps}}
+          <span class="entry">
+            <span class="content">
+              <a href="/apps/{{name}}">{{name}}</a>
+            </span>
+          </span>
+          {{/each}}
+          <span class="action"><a href='/organisations/{{organisation.name}}/apps/new' class="action-link add">New App</a></span>
+      </div>
+    </div>
   </div>
-
-</body>
-</html>
+</div>

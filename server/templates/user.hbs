@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-
-<html>
-<head>
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-</head>
-<body>
+<div class="container cf">
   <div class="col col2">
     <div class="panel">
       <div class="head">
@@ -12,14 +6,14 @@
       </div>
       <div class="body fixed large">
           <span class="entry "><span class="content">Organisations:</span></span>
-          {{#each user.organisations}}
+          {{#each orgNames}}
           <span class="entry">
             <span class="content">
-              {{this}}
+              {{name}}
             </span>
           </span>
           {{/each}}
-
+          <br>
           <span class="entry "><span class="content">Email Addresses: </span></span>
           {{#each user.emailAddresses}}
           <span class="entry">
@@ -28,12 +22,10 @@
             </span>
           </span>
           {{/each}}
+          <br>
           <span class="action"><a href='/users/{{user.name}}/edit' class="action-link add">Edit {{user.name}}</a></span>
           <span class="action"><a href='/users/{{user.name}}/delete' class="action-link delete">Delete {{user.name}}</a></span>
       </div>
     </div>
   </div>
-
-
-</body>
-</html>
+</div>
