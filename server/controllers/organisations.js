@@ -1,4 +1,7 @@
-var server = require('../server.js')
+var OrganisationController = require('../db/organisation_controller.js');
+var organisationController = new OrganisationController();
+var ApplicationController = require('../db/application_controller.js');
+var applicationController = new ApplicationController();
 
 module.exports = function (server) {
 
@@ -13,7 +16,6 @@ module.exports = function (server) {
         return applicationController.show({organisation: organisation[0]._id})
       }).then(function (res) {
           apps = res
-          console.log(organisation)
           reply.view('organisation.hbs', {organisation: organisation[0], apps: apps})
       }).catch(function (err) {
         console.log(err)
@@ -35,6 +37,27 @@ module.exports = function (server) {
   });
 
   server.route({
+    method: 'GET',
+    path: '/organisations/new',
+    handler: function (request, reply) {
+      reply.view('new_organisation.hbs');
+    }
+  });
+
+  server.route({
+    method: 'POST',
+    path: '/organisations/create',
+    handler: function (request, reply) {
+      return organisationController.create(request.payload)
+      .then(function(newOrganisation) {
+        reply.redirect('/');
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  });
+
+  server.route({
     method: 'POST',
     path: '/organisations/{name}/update',
     handler: function (request, reply) {
@@ -46,8 +69,19 @@ module.exports = function (server) {
 
   server.route({
     method: 'GET',
+    path: '/organisations/{name}/delete',
+    handler: function (request, reply) {
+      return organisationController.delete({name: request.params.name}, function ( ) {
+        reply.redirect('/');
+      })
+    }
+  });
+
+  server.route({
+    method: 'GET',
     path: '/organisations/{name}/apps/new',
     handler: function (request, reply) {
+      var organisation;
       return organisationController.show({name: request.params.name})
       .then(function (res) {
         organisation = res;
@@ -65,10 +99,11 @@ module.exports = function (server) {
       var org = request.params.name
       return applicationController.create(request.payload)
       .then(function(newApp) {
-        reply.redirect('/');
+        reply.redirect('/organisations/' + org);
       }).catch(function (err) {
         console.log(err);
       });
     }
   });
+
 };
