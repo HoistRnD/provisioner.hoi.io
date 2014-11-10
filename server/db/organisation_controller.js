@@ -20,11 +20,11 @@ OrganisationController.prototype = {
     return newOrg.saveAsync()
     .catch(function(err) {
       console.log(err);
-    })
+    });
   },
 
   update: function (info, callback) {
-    var query = {name: info.name}
+    var query = {name: info.name};
     var update = info.payload;
     Organisation.findOneAndUpdate(query, update, function (err, docs) {
       callback(docs);
@@ -36,8 +36,8 @@ OrganisationController.prototype = {
       organisation.remove( function (err) {
         console.log(err);
         callback();
-      })
-    })
+      });
+    });
   }
 };
 

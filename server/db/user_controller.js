@@ -23,25 +23,26 @@ UserController.prototype = {
     return newUser.saveAsync()
     .catch(function(err) {
       console.log(err);
-    })
+    });
   },
 
   update: function (info, callback) {
     var query = {name: info.name};
-    var user;
     var update = info.payload;
     User.findOne(query, function (err, user) {
       var newOrg = [];
-      var removeOrg = [];
       var newEmail = [];
-      newOrg.push(update.organisation)
-      newEmail.push(update.emailAddress)
+      newOrg.push(update.organisation);
+      newEmail.push(update.emailAddress);
+
       if ( _.difference(newOrg, user.organisations).length > 0 && update.organisation !== '-') {
         user.organisations.push(update.organisation);
       }
+
       if (update.emailAddress && ( _.difference(newEmail, user.emailAddresses).length > 0)) {
         user.emailAddresses.push({address: update.emailAddress});
       }
+
       if (update.removeEmailAddress) {
         for (var i=0; i < user.emailAddresses.length; i++) {
           if (user.emailAddresses[i]._id == update.removeEmailAddress) {
@@ -50,18 +51,23 @@ UserController.prototype = {
         }
       }
 
-      if (update.removeOrganisation) {
-        for (var i=0; i < user.organisations.length; i++) {
-          if (user.organisations[i] == update.removeOrganisation) {
-            user.organisations.splice(i, 1);
+      if (update.removeOrganisation && user.organisations.length > 1) {
+        for (var j=0; j < user.organisations.length; j++) {
+          if (user.organisations[j] == update.removeOrganisation) {
+            user.organisations.splice(j, 1);
           }
         }
       }
-      user.name = update.name
+
+      user.setPassword(update.password);
+
+      user.name = update.name;
       user.save(function (err) {
-        console.log(err)
-      callback(user);
-      })
+        if (err) {
+          console.log(err);
+        }
+        callback(user);
+      });
     });
   },
 
@@ -70,8 +76,8 @@ UserController.prototype = {
       user.remove( function (err) {
         console.log(err);
         callback();
-      })
-    })
+      });
+    });
   }
 };
 

@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
-var db = mongoose.connection;
 mongoose.connect('localhost', 'test');
 var Application = require('hoist-model').Application;
-var Sanitizer = require('./sanitizer.js')
+var Sanitizer = require('./sanitizer.js');
 var sanitizer = new Sanitizer();
 
 var ApplicationController = function () {
@@ -27,14 +26,14 @@ ApplicationController.prototype = {
     return newApp.saveAsync()
     .catch(function(err) {
       console.log(err);
-    })
+    });
   },
 
   update: function (info, callback) {
-    var query = {name: info.name}
+    var query = {name: info.name};
     var update = info.payload;
     if (update.organisation == '-') {
-      delete update.organisation
+      delete update.organisation;
     }
     Application.findOneAndUpdate(query, update, function (err, docs) {
       callback(docs);
@@ -46,8 +45,8 @@ ApplicationController.prototype = {
       app.remove( function (err) {
         console.log(err);
         callback();
-      })
-    })
+      });
+    });
   }
 };
 
