@@ -28,27 +28,28 @@ UserController.prototype = {
     });
   },
 
-  update: function (info, callback) {
+  update: function (info) {
     var query = {name: info.name};
     var update = info.payload;
+    console.log(update)
     return User.findOneAsync(query)
     .then(function (user) {
-      user.organisations.addToSet(update.organisation)
+      user.organisations.addToSet(update.organisation);
       if (update.emailAddress) {
-        user.emailAddresses.addToSet({address: update.emailAddress})
+        user.emailAddresses.addToSet({address: update.emailAddress});
       }
-      user.emailAddresses.pull({address: update.removeEmailAddress})
-      user.organisations.pull(update.removeOrganisation)
+      user.emailAddresses.pull({address: update.removeEmailAddress});
+      user.organisations.pull(update.removeOrganisation);
       return user.setPassword(update.password)
       .then(function (){
         user.name = update.name;
-        return user.saveAsync()
-      })
+        return user.saveAsync();
+      });
     });
   },
 
   delete: function (query) {
-    var update = {deleted: true}
+    var update = {deleted: true};
     return User.findOneAndUpdateAsync(query, update)
     .catch(function (err) {
       console.log(err);

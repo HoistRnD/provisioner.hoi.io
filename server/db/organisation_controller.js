@@ -5,13 +5,13 @@ var OrganisationController = function () {
 
 OrganisationController.prototype = {
   index: function (query) {
-    var query = query || {deleted: false}
+    var query = query || {deleted: false};
     return Organisation.findAsync(query);
   },
 
   show: function (query, key, value) {
-    var key = key || 'deleted'
-    var value = value || 'false'
+    var key = key || 'deleted';
+    var value = value || 'false';
     return Organisation.find(query).where(key, value).exec();
   },
 
@@ -26,7 +26,7 @@ OrganisationController.prototype = {
     });
   },
 
-  update: function (info, callback) {
+  update: function (info) {
     var query = {name: info.name};
     var update = info.payload;
     return Organisation.findOneAndUpdateAsync(query, update)
@@ -35,8 +35,8 @@ OrganisationController.prototype = {
     });
   },
 
-  delete: function (query, callback) {
-    var update = {deleted: true}
+  delete: function (query) {
+    var update = {deleted: true};
     return Organisation.findOneAndUpdateAsync(query, update)
     .catch(function (err) {
       console.log(err);

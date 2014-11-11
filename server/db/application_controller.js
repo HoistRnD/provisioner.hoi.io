@@ -10,13 +10,13 @@ var ApplicationController = function () {
 
 ApplicationController.prototype = {
   index: function (query) {
-    var query = query || {deleted: false}
+    var query = query || {deleted: false};
     return Application.findAsync(query);
   },
 
   show: function (query, key, value) {
-    var key = key || 'deleted'
-    var value = value || 'false'
+    var key = key || 'deleted';
+    var value = value || 'false';
     return Application.find(query).where(key, value).exec();
   },
 
@@ -32,7 +32,7 @@ ApplicationController.prototype = {
     });
   },
 
-  update: function (info, callback) {
+  update: function (info) {
     var query = {name: info.name};
     var update = info.payload;
     if (update.organisation == '-') {
@@ -45,7 +45,7 @@ ApplicationController.prototype = {
   },
 
   delete: function (query) {
-    var update = {deleted: true}
+    var update = {deleted: true};
     return Application.findOneAndUpdateAsync(query, update)
     .catch(function (err) {
       console.log(err);

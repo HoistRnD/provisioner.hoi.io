@@ -10,17 +10,18 @@ module.exports = function (server) {
   method: 'GET',
   path: '/users/{name}',
   handler: function (request, reply) {
-    var user, orgNames;
-    var organisations = [];
+    var user;
     userController.show({name: request.params.name})
-    .then(function(res) {
-      user = res[0];
+    .then(function(userResult) {
+      user = userResult[0];
+      console.log(user)
+      var organisations = [];
       for (var i=0; i < user.organisations.length; i++) {
         organisations.push(organisationController.show({_id: user.organisations[i]}));
       }
       return BBPromise.all(organisations);
-    }).then(function(res) {
-      orgNames = _.flatten(res);
+    }).then(function(orgs) {
+      var orgNames = _.flatten(orgs);
       reply.view('user.hbs', {user: user, orgNames: orgNames, title: request.params.name }, {layout: 'layout'});
     });
   }
@@ -30,10 +31,8 @@ server.route({
   method: 'GET',
   path: '/users/new',
   handler: function (request, reply) {
-    var organisations;
     return organisationController.index()
-    .then(function (res) {
-      organisations = res;
+    .then(function (organisations) {
       reply.view('new_user.hbs', {organisations: organisations, title: 'New User' }, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
@@ -58,14 +57,13 @@ server.route({
   method: 'GET',
   path: '/users/{name}/edit',
   handler: function (request, reply) {
-    var user, organisations;
+    var user;
     return userController.show({name: request.params.name})
-    .then(function (res) {
-      user = res;
+    .then(function (userResult) {
+      user = userResult[0];
       return organisationController.index();
-    }).then(function (res) {
-      organisations = res;
-      reply.view('edit_user.hbs', {user: user[0], organisations: organisations, title: 'Edit ' + request.params.name }, {layout: 'layout'});
+    }).then(function (organisations) {
+      reply.view('edit_user.hbs', {user: user, organisations: organisations, title: 'Edit ' + request.params.name }, {layout: 'layout'});
     });
   }
 });
@@ -87,8 +85,8 @@ server.route({
   handler: function (request, reply) {
     return userController.delete({name: request.params.name})
     .then(function () {
-      reply.redirect('/')
-    })
+      reply.redirect('/');
+    });
   }
 });
 };

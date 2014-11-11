@@ -48,13 +48,12 @@ server.route({
   method: 'GET',
   path: '/',
   handler: function (request, reply) {
-    var users, organisations;
+    var organisations;
     return organisationController.index()
-    .then(function (res) {
-      organisations = res;
+    .then(function (orgs) {
+      organisations = orgs;
       return userController.index();
-    }).then(function (res) {
-      users = res;
+    }).then(function (users) {
       reply.view('welcome.hbs', {organisations: organisations, users: users, title: 'Home'}, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
@@ -83,7 +82,7 @@ handlebars.registerHelper('removeEmailDropDown', function(items, options) {
   var out = "<select name = 'removeEmailAddress' class='dropdown title'><option>- </option>";
 
   for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<option value='" + items[i]._id + "'>" + options.fn(items[i]) + "</option>";
+    out = out + "<option value='" + items[i].address + "'>" + options.fn(items[i]) + "</option>";
   }
 
   return out + "</select>";

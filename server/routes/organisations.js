@@ -8,13 +8,12 @@ module.exports = function (server) {
     method: 'GET',
     path: '/organisations/{name}',
     handler: function (request, reply) {
-      var organisation, apps;
+      var organisation;
       return organisationController.show({name: request.params.name})
-      .then(function (res) {
-        organisation = res[0];
+      .then(function (org) {
+        organisation = org[0];
         return applicationController.show({organisation: organisation._id});
-      }).then(function (res) {
-          apps = res;
+      }).then(function (apps) {
           reply.view('organisation.hbs', {organisation: organisation, apps: apps, title: request.params.name }, {layout: 'layout'});
       });
     }
@@ -24,10 +23,8 @@ module.exports = function (server) {
     method: 'GET',
     path: '/organisations/{name}/edit',
     handler: function (request, reply) {
-      var organisation;
       return organisationController.show({name: request.params.name})
-      .then(function (res) {
-        organisation = res;
+      .then(function (organisation) {
         reply.view('edit_organisation.hbs', {organisation: organisation[0], title: 'Edit ' + request.params.name}, {layout: 'layout'});
       });
     }
@@ -59,9 +56,9 @@ module.exports = function (server) {
     path: '/organisations/{name}/update',
     handler: function (request, reply) {
       return organisationController.update({name: request.params.name, payload: request.payload})
-      .then(function (res) {
-        reply.redirect('/organisations/' + res.name);
-      })
+      .then(function (organisation) {
+        reply.redirect('/organisations/' + organisation.name);
+      });
     }
   });
 
@@ -72,7 +69,7 @@ module.exports = function (server) {
       return organisationController.delete({name: request.params.name})
       .then(function () {
         reply.redirect('/');
-      })
+      });
     }
   });
 
@@ -80,13 +77,9 @@ module.exports = function (server) {
     method: 'GET',
     path: '/organisations/{name}/apps/new',
     handler: function (request, reply) {
-      var organisation;
       return organisationController.show({name: request.params.name})
-      .then(function (res) {
-        organisation = res;
+      .then(function (organisation) {
         reply.view('new_app.hbs', {organisation: organisation[0], title: 'New App'}, {layout: 'layout'});
-      }).catch(function (err) {
-        console.log(err);
       });
     }
   });
@@ -95,10 +88,9 @@ module.exports = function (server) {
     method: 'POST',
     path: '/organisations/{name}/apps/create',
     handler: function (request, reply) {
-      var org = request.params.name;
       return applicationController.create(request.payload)
-      .then(function(newApp) {
-        reply.redirect('/organisations/' + org);
+      .then(function() {
+        reply.redirect('/organisations/' + request.params.name);
       }).catch(function (err) {
         console.log(err);
       });
