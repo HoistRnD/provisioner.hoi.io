@@ -1,0 +1,17 @@
+
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">Edit {{organisation.name}}</span>
+        </div>
+        <div class="body">
+          <form action="/organisations/{{organisation.name}}/update" method="POST">
+            Organisation name: <input type="text" name="name" value='{{organisation.name}}' required><br>
+            Git Folder: <input type="text" name="gitFolder" value='{{organisation.gitFolder}}' required><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

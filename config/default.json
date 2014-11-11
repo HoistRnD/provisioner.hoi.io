@@ -1,0 +1,10 @@
+{
+  "Hoist": {
+    "http": {
+      "port": 3000
+    },
+    "security": {
+      "passwordStrength": 12
+    }
+  }
+}

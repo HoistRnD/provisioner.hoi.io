@@ -1,0 +1,20 @@
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">Edit {{user.name}}</span>
+        </div>
+        <div class="body">
+          <form action="/users/{{user.name}}/update" method="POST">
+            User name: <input type="text" name="name" value='{{user.name}}' required><br>
+            Add Organisation: {{#addOrgDropDown organisations}}{{name}}{{/addOrgDropDown}}<br>
+            Remove Organisation: {{#removeOrgDropDown organisations}}{{name}}{{/removeOrgDropDown}}<br>
+            Add Email Address : <input type="text" name="emailAddress" placeholder='Email Address'><br>
+            Remove Email Address : {{#removeEmailDropDown user.emailAddresses}}{{address}}{{/removeEmailDropDown}}<br>
+            New Password:  <input type="password" name="password" ><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

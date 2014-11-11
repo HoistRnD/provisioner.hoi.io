@@ -1,0 +1,18 @@
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">New Application</span>
+        </div>
+        <div class="body">
+          <form action="/organisations/{{organisation.name}}/apps/create" method="POST">
+            Organisation: {{organisation.name}}
+            <br>
+            App Name: <input type="text" name="appName" required><br>
+            <input type="hidden" name = "organisation" value = "{{organisation._id}}"/>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

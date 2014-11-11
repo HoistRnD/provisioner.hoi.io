@@ -1,0 +1,31 @@
+<div class="container cf">
+  <div class="col col2">
+    <div class="panel">
+      <div class="head">
+        <span class="label">{{user.name}}</span>
+      </div>
+      <div class="body fixed large">
+          <span class="entry "><span class="content">Organisations:</span></span>
+          {{#each orgNames}}
+          <span class="entry">
+            <span class="content">
+              <a href="/organisations/{{name}}">{{name}}</a>
+            </span>
+          </span>
+          {{/each}}
+          <br>
+          <span class="entry "><span class="content">Email Addresses: </span></span>
+          {{#each user.emailAddresses}}
+          <span class="entry">
+            <span class="content">
+              {{address}}
+            </span>
+          </span>
+          {{/each}}
+          <br>
+          <span class="action"><a href='/users/{{user.name}}/edit' class="action-link add">Edit {{user.name}}</a></span>
+          <span class="action"><a href='/users/{{user.name}}/confirm-delete' class="action-link delete">Delete {{user.name}}</a></span>
+      </div>
+    </div>
+  </div>
+</div>

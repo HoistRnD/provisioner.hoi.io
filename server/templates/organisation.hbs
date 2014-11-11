@@ -1,0 +1,25 @@
+
+<div class="container cf">
+  <div class="col col2">
+    <div class="panel">
+      <div class="head">
+        <span class="label">{{organisation.name}}</span>
+      </div>
+      <div class="body fixed large">
+          <span class="entry "><span class="content">Git Folder: {{organisation.gitFolder}}</span></span>
+          <span class="action"><a href='/organisations/{{organisation.name}}/edit' class="action-link add">Edit {{organisation.name}}</a></span>
+          <span class="action"><a href='/organisations/{{organisation.name}}/confirm-delete' class="action-link delete">Delete {{organisation.name}}</a></span><br>
+          <br>
+          <span class="entry "><span class="content">Existing Apps:</span></span>
+          {{#each apps}}
+          <span class="entry">
+            <span class="content">
+              <a href="/apps/{{name}}">{{name}}</a>
+            </span>
+          </span>
+          {{/each}}
+          <span class="action"><a href='/organisations/{{organisation.name}}/apps/new' class="action-link add">New App</a></span>
+      </div>
+    </div>
+  </div>
+</div>

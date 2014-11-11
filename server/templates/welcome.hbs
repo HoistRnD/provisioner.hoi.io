@@ -1,0 +1,36 @@
+  <div class="container cf">
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">Existing Organisations</span>
+          <span class="action"><a href="/organisations/new" class="action-link add">Add New Organisation</a></span>
+        </div>
+        <div class="body fixed large">
+          {{#each organisations}}
+          <span class="entry">
+            <span class="content">
+              <a href="/organisations/{{name}}">{{name}}</a>
+            </span>
+          </span>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="col col2">
+      <div class="panel">
+        <div class="head">
+          <span class="label">Existing Users</span>
+          <span class="action"><a href="/users/new" class="action-link add">Add New User</a></span>
+        </div>
+        <div class="body fixed large">
+          {{#each users}}
+          <span class="entry">
+            <span class="content">
+              <a href="/users/{{name}}">{{name}}</a>
+            </span>
+          </span>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
