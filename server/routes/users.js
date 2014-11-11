@@ -1,6 +1,6 @@
-var UserController = require('../db/user_controller.js');
+var UserController = require('../controllers/user_controller.js');
 var userController = new UserController();
-var OrganisationController = require('../db/organisation_controller.js');
+var OrganisationController = require('../controllers/organisation_controller.js');
 var organisationController = new OrganisationController();
 var BBPromise = require('bluebird');
 var _ = require('lodash');
@@ -14,7 +14,6 @@ module.exports = function (server) {
     userController.show({name: request.params.name})
     .then(function(userResult) {
       user = userResult[0];
-      console.log(user)
       var organisations = [];
       for (var i=0; i < user.organisations.length; i++) {
         organisations.push(organisationController.show({_id: user.organisations[i]}));
