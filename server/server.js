@@ -1,6 +1,6 @@
 var Hapi = require('hapi');
-var OrganisationController = require('./db/organisation_controller.js');
-var UserController = require('./db/user_controller.js');
+var OrganisationController = require('./controllers/organisation_controller.js');
+var UserController = require('./controllers/user_controller.js');
 var organisationController = new OrganisationController();
 var userController = new UserController();
 var server = new Hapi.Server(3000);
@@ -10,6 +10,8 @@ var userRoutes = require('./routes/users');
 var applicationRoutes = require('./routes/apps');
 var handlebars = require('handlebars');
 var path = require('path');
+var HandlebarsHelpers = require('./handlebars_helpers.js')
+
 
 server.views({
     engines: {
@@ -22,6 +24,8 @@ server.views({
 organisationRoutes(server);
 userRoutes(server);
 applicationRoutes(server);
+
+HandlebarsHelpers(handlebars)
 
 server.route({
    method: 'GET',
@@ -64,36 +68,4 @@ server.route({
 //  server start =============================================================
 server.start(function () {
   console.log('info', 'Server running at: ' + server.info.uri);
-});
-
-// handlebars helpers =============================================================
-
-handlebars.registerHelper('addOrgDropDown', function(items, options) {
-  var out = "<select name = 'organisation' class='dropdown title'><option>- </option>";
-
-  for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<option value='" + items[i]._id + "'>" + options.fn(items[i]) + "</option>";
-  }
-
-  return out + "</select>";
-});
-
-handlebars.registerHelper('removeEmailDropDown', function(items, options) {
-  var out = "<select name = 'removeEmailAddress' class='dropdown title'><option>- </option>";
-
-  for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<option value='" + items[i].address + "'>" + options.fn(items[i]) + "</option>";
-  }
-
-  return out + "</select>";
-});
-
-handlebars.registerHelper('removeOrgDropDown', function(items, options) {
-  var out = "<select name = 'removeOrganisation' class='dropdown title'><option>- </option>";
-
-  for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<option value='" + items[i]._id + "'>" + options.fn(items[i]) + "</option>";
-  }
-
-  return out + "</select>";
 });
