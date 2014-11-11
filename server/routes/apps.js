@@ -52,6 +52,14 @@ module.exports = function (server) {
 
   server.route({
     method: 'GET',
+    path: '/apps/{name}/confirm-delete',
+    handler: function (request, reply) {
+      reply.view('confirm_delete.hbs', {title: 'Confirm Delete', type: 'apps', name: request.params.name}, {layout: 'layout'});
+    }
+  });
+
+  server.route({
+    method: 'GET',
     path: '/apps/{name}/delete',
     handler: function (request, reply) {
       return applicationController.delete({name: request.params.name})

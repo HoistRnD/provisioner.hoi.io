@@ -80,6 +80,14 @@ server.route({
 
 server.route({
   method: 'GET',
+  path: '/users/{name}/confirm-delete',
+  handler: function (request, reply) {
+    reply.view('confirm_delete.hbs', {title: 'Confirm Delete', type: 'users', name: request.params.name}, {layout: 'layout'});
+  }
+});
+
+server.route({
+  method: 'GET',
   path: '/users/{name}/delete',
   handler: function (request, reply) {
     return userController.delete({name: request.params.name})
