@@ -43,7 +43,7 @@ module.exports = function (server) {
     path: '/organisations/create',
     handler: function (request, reply) {
       return organisationController.create(request.payload)
-      .then(function(newOrganisation) {
+      .then(function() {
         reply.redirect('/');
       }).catch(function (err) {
         console.log(err);

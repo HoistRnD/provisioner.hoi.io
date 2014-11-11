@@ -531,6 +531,10 @@ header {
     background: url('../images/add.png');
     background-repeat: no-repeat;
     background-position: left center; }
+    .action-link.delete {
+      background: url('../images/delete.png');
+      background-repeat: no-repeat;
+      background-position: left center; }
 
 .icon.delete {
   width: 14px;
@@ -566,6 +570,9 @@ header {
     background-size: 6px 4px; }
   .action-link.add {
     background-image: url('../images/add@2x.png');
+    background-size: 16px 16px; }
+  .action-link.delete {
+    background-image: url('../images/delete@2x.png');
     background-size: 16px 16px; }
   .icon.delete {
     background-image: url('../images/delete@2x.png');

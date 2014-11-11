@@ -10,7 +10,7 @@ var userRoutes = require('./routes/users');
 var applicationRoutes = require('./routes/apps');
 var handlebars = require('handlebars');
 var path = require('path');
-var HandlebarsHelpers = require('./handlebars_helpers.js')
+var HandlebarsHelpers = require('./handlebars_helpers.js');
 
 
 server.views({
@@ -25,7 +25,7 @@ organisationRoutes(server);
 userRoutes(server);
 applicationRoutes(server);
 
-HandlebarsHelpers(handlebars)
+HandlebarsHelpers(handlebars);
 
 server.route({
    method: 'GET',
