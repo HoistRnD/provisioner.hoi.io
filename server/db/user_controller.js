@@ -1,22 +1,24 @@
-var _ = require('lodash');
 var User = require('hoist-model').HoistUser;
 
 var UserController = function () {
 };
 
 UserController.prototype = {
-  index: function () {
-    return User.findAsync({});
+  index: function (query) {
+    var query = query || {deleted: false}; 
+    return User.findAsync(query);
   },
 
-   show: function (query) {
-    return User.findAsync(query);
+   show: function (query, key, value) {
+    var key = key || 'deleted';
+    var value = value || 'false';
+    return User.find(query).where(key, value).exec();
   },
 
   create: function (options) {
     var newUser = new User({
       name: options.name,
-      organisations: [{_id: '6uQUrDjcvLIuyXC0GaLD'}],
+      organisations: [{_id: options.organisation}],
       emailAddresses: [{address: options.emailAddress}],
       password: options.password
     });
@@ -29,54 +31,27 @@ UserController.prototype = {
   update: function (info, callback) {
     var query = {name: info.name};
     var update = info.payload;
-    User.findOne(query, function (err, user) {
-      var newOrg = [];
-      var newEmail = [];
-      newOrg.push(update.organisation);
-      newEmail.push(update.emailAddress);
-
-      if ( _.difference(newOrg, user.organisations).length > 0 && update.organisation !== '-') {
-        user.organisations.push(update.organisation);
+    return User.findOneAsync(query)
+    .then(function (user) {
+      user.organisations.addToSet(update.organisation)
+      if (update.emailAddress) {
+        user.emailAddresses.addToSet({address: update.emailAddress})
       }
-
-      if (update.emailAddress && ( _.difference(newEmail, user.emailAddresses).length > 0)) {
-        user.emailAddresses.push({address: update.emailAddress});
-      }
-
-      if (update.removeEmailAddress) {
-        for (var i=0; i < user.emailAddresses.length; i++) {
-          if (user.emailAddresses[i]._id == update.removeEmailAddress) {
-            user.emailAddresses.splice(i, 1);
-          }
-        }
-      }
-
-      if (update.removeOrganisation && user.organisations.length > 1) {
-        for (var j=0; j < user.organisations.length; j++) {
-          if (user.organisations[j] == update.removeOrganisation) {
-            user.organisations.splice(j, 1);
-          }
-        }
-      }
-
-      user.setPassword(update.password);
-
-      user.name = update.name;
-      user.save(function (err) {
-        if (err) {
-          console.log(err);
-        }
-        callback(user);
-      });
+      user.emailAddresses.pull({address: update.removeEmailAddress})
+      user.organisations.pull(update.removeOrganisation)
+      return user.setPassword(update.password)
+      .then(function (){
+        user.name = update.name;
+        return user.saveAsync()
+      })
     });
   },
 
-  delete: function (query, callback) {
-    User.findOne(query, function (err, user) {
-      user.remove( function (err) {
-        console.log(err);
-        callback();
-      });
+  delete: function (query) {
+    var update = {deleted: true}
+    return User.findOneAndUpdateAsync(query, update)
+    .catch(function (err) {
+      console.log(err);
     });
   }
 };

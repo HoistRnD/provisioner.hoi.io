@@ -9,12 +9,15 @@ var ApplicationController = function () {
 };
 
 ApplicationController.prototype = {
-  index: function () {
-    return Application.findAsync({});
+  index: function (query) {
+    var query = query || {deleted: false}
+    return Application.findAsync(query);
   },
 
-  show: function (query) {
-    return  Application.findAsync(query);
+  show: function (query, key, value) {
+    var key = key || 'deleted'
+    var value = value || 'false'
+    return Application.find(query).where(key, value).exec();
   },
 
   create: function (options) {
@@ -35,17 +38,17 @@ ApplicationController.prototype = {
     if (update.organisation == '-') {
       delete update.organisation;
     }
-    Application.findOneAndUpdate(query, update, function (err, docs) {
-      callback(docs);
+    return Application.findOneAndUpdateAsync(query, update)
+    .catch(function (err) {
+      console.log(err);
     });
   },
 
-  delete: function (query, callback) {
-    Application.findOne(query, function (err, app) {
-      app.remove( function (err) {
-        console.log(err);
-        callback();
-      });
+  delete: function (query) {
+    var update = {deleted: true}
+    return Application.findOneAndUpdateAsync(query, update)
+    .catch(function (err) {
+      console.log(err);
     });
   }
 };

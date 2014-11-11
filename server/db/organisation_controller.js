@@ -4,12 +4,15 @@ var OrganisationController = function () {
 };
 
 OrganisationController.prototype = {
-  index: function () {
-    return Organisation.findAsync({});
+  index: function (query) {
+    var query = query || {deleted: false}
+    return Organisation.findAsync(query);
   },
 
-  show: function (query) {
-    return Organisation.findAsync(query);
+  show: function (query, key, value) {
+    var key = key || 'deleted'
+    var value = value || 'false'
+    return Organisation.find(query).where(key, value).exec();
   },
 
   create: function (options) {
@@ -26,17 +29,17 @@ OrganisationController.prototype = {
   update: function (info, callback) {
     var query = {name: info.name};
     var update = info.payload;
-    Organisation.findOneAndUpdate(query, update, function (err, docs) {
-      callback(docs);
+    return Organisation.findOneAndUpdateAsync(query, update)
+    .catch(function (err) {
+      console.log(err);
     });
   },
 
   delete: function (query, callback) {
-    Organisation.findOne(query, function (err, organisation) {
-      organisation.remove( function (err) {
-        console.log(err);
-        callback();
-      });
+    var update = {deleted: true}
+    return Organisation.findOneAndUpdateAsync(query, update)
+    .catch(function (err) {
+      console.log(err);
     });
   }
 };
