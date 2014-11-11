@@ -5,9 +5,9 @@ var organisationController = new OrganisationController();
 var userController = new UserController();
 var server = new Hapi.Server(3000);
 module.exports = server;
-var organisationRoutes = require('./controllers/organisations');
-var userRoutes = require('./controllers/users');
-var applicationRoutes = require('./controllers/apps');
+var organisationRoutes = require('./routes/organisations');
+var userRoutes = require('./routes/users');
+var applicationRoutes = require('./routes/apps');
 var handlebars = require('handlebars');
 var path = require('path');
 
@@ -55,7 +55,7 @@ server.route({
       return userController.index();
     }).then(function (res) {
       users = res;
-      reply.view('welcome.hbs', {organisations: organisations, users: users}, {layout: 'layout'});
+      reply.view('welcome.hbs', {organisations: organisations, users: users, title: 'Home'}, {layout: 'layout'});
     }).catch(function (err) {
       console.log(err);
     });
@@ -67,53 +67,7 @@ server.start(function () {
   console.log('info', 'Server running at: ' + server.info.uri);
 });
 
-
-//  handlebars reguster helpers ==========================================================
-
-// handlebars.registerPartial('layout', fs.readFileSync('./templates/layout.hbs', 'utf8'));
-
-
-// handlebars.registerHelper('usersList', function(items, options) {
-//   var out = "<ul>";
-
-//   for(var i=items.length -1; i>=0; i--) {
-//     out = out + "<a href = '/users/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
-//   }
-
-//   return out + "</ul>";
-// });
-
-// handlebars.registerHelper('appsList', function(items, options) {
-//   var out = "<ul>";
-
-//   for(var i=items.length -1; i>=0; i--) {
-//     out = out + "<a href = '/apps/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
-//   }
-
-//   return out + "</ul>";
-// });
-
-// handlebars.registerHelper('organisationsList', function(items, options) {
-//   var out = "<ul>";
-
-//   for(var i=items.length -1; i>=0; i--) {
-//     out = out + "<a href = '/organisations/" + items[i].name + "'><li>" + options.fn(items[i]) + "</li></a>";
-//   }
-
-//   return out + "</ul>";
-// });
-
-
-// handlebars.registerHelper('list', function(items, options) {
-//   var out = "<ul>";
-
-//   for(var i=items.length -1; i>=0; i--) {
-//     out = out + "<li>" + options.fn(items[i]) + "</li>";
-//   }
-
-//   return out + "</ul>";
-// });
-
+// handlebars helpers =============================================================
 
 handlebars.registerHelper('addOrgDropDown', function(items, options) {
   var out = "<select name = 'organisation' class='dropdown title'><option>- </option>";
@@ -144,13 +98,3 @@ handlebars.registerHelper('removeOrgDropDown', function(items, options) {
 
   return out + "</select>";
 });
-
-// handlebars.registerHelper('userEmailsList', function(items, options) {
-//   var out = "<p>";
-
-//   for(var i=0, l=items.length; i<l; i++) {
-//     out = out +  options.fn(items[i]) + ", ";
-//   }
-
-//   return out + "</p>";
-// });
