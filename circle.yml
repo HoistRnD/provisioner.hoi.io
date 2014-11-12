@@ -3,6 +3,22 @@ machine:
     version: 2.1.2
   node:
     version: v0.10.31
+dependencies:
+  pre:
+    - >
+      if [ ! -d /home/ubuntu/optipng-0.7.5 ]; then
+        (set -e
+            cd /home/ubuntu
+            wget http://prdownloads.sourceforge.net/optipng/optipng-0.7.5.tar.gz?download -O optipng-0.7.5.tar.gz
+            tar xzf optipng-0.7.5.tar.gz
+            cd optipng-0.7.5
+            ./configure --prefix=/home/ubuntu/optipng-0.7.5 --with-system-zlib --bindir=/home/ubuntu/optipng-0.7.5
+            make install)
+        fi
+        cd /home/ubuntu/optipng-0.7.5
+        cp optipng ../bin
+  cache_directories:
+    - /home/ubuntu/optipng-0.7.5
 general:
   artifacts:
     - coverage/*

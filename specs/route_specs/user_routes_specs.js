@@ -119,14 +119,14 @@ describe('routes: users', function () {
 
     it('should show dropdown for existing organisation in the form', function () {
       var organisations = $('form').find('select.dropdown option');
-      expect(organisations.length).to.equal(3)
+      expect(organisations.length).to.equal(3);
     });
 
     it('should show the existing organisations in the dropdown', function () {
       var organisations = $('form').find('select.dropdown option');
       // the first drop down option is a '-'
-      expect(organisations["1"].children[0].data).to.equal("test-organisation-one");
-      expect(organisations["2"].children[0].data).to.equal("test-organisation-two");
+      expect(organisations['1'].children[0].data).to.equal('test-organisation-one');
+      expect(organisations['2'].children[0].data).to.equal('test-organisation-two');
     });
 
   });
