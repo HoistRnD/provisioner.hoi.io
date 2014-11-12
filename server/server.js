@@ -4,7 +4,7 @@ var OrganisationController = require('./controllers/organisation_controller.js')
 var UserController = require('./controllers/user_controller.js');
 var server = new Hapi.Server(require('config').get('Hoist.http.port'));
 var mongoose = require('mongoose');
-var config = require('config')
+var config = require('config');
 var organisationRoutes = require('./routes/organisations');
 var userRoutes = require('./routes/users');
 var applicationRoutes = require('./routes/apps');
@@ -75,8 +75,9 @@ module.exports = {
 
   stop: function () {
     server.start(function () {
-      mongoose.disconnect;
+      mongoose.disconnect();
       console.log('info', 'Server disconnected');
     });
-  }
-}
+  },
+  server: server
+};

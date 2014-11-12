@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 describe('routes: home', function () {
   describe('GET /', function () {
     var response;
-    var server = require('../../server/server.js');
+    var server = require('../../server/server.js').server;
     var $;
     before(function (done) {
       var userOne = {

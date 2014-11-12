@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 describe('routes: users', function () {
   describe('GET /users/{name}', function () {
     var response;
-    var server = require('../../server/server.js');
+    var server = require('../../server/server.js').server;
     var $;
     before(function (done) {
       var user = {
@@ -71,7 +71,7 @@ describe('routes: users', function () {
   
   describe('GET /users/new', function () {
     var response;
-    var server = require('../../server/server.js');
+    var server = require('../../server/server.js').server;
     var $;
     before(function (done) {
       var organisationOne = {
