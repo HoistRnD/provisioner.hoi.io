@@ -1,9 +1,10 @@
 var Organisation = require('hoist-model').Organisation;
 
-var OrganisationController = function () {
-};
+// var OrganisationController = function () {
+// };
 
-OrganisationController.prototype = {
+// OrganisationController.prototype = {
+OrganisationController = {
   index: function (query) {
     var query = query || {deleted: false};
     return Organisation.findAsync(query);
@@ -12,6 +13,7 @@ OrganisationController.prototype = {
   show: function (query, key, value) {
     var key = key || 'deleted';
     var value = value || 'false';
+    console.log('show');
     return Organisation.find(query).where(key, value).exec();
   },
 

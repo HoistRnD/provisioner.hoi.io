@@ -1,7 +1,7 @@
-var ApplicationController = require('../controllers/application_controller.js');
-var applicationController = new ApplicationController();
-var OrganisationController = require('../controllers/organisation_controller.js');
-var organisationController = new OrganisationController();
+var applicationController = require('../controllers/application_controller.js');
+// var applicationController = new ApplicationController();
+var organisationController = require('../controllers/organisation_controller.js');
+// var organisationController = new OrganisationController();
 
 module.exports = function (server) {
   server.route({

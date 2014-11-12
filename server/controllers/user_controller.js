@@ -1,9 +1,10 @@
 var User = require('hoist-model').HoistUser;
 
-var UserController = function () {
-};
-
-UserController.prototype = {
+// var UserController = function () {
+// };
+// module.exports = {
+// UserController.prototype = {
+  UserController = {
   index: function (query) {
     var query = query || {deleted: false}; 
     return User.findAsync(query);
