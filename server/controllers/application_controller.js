@@ -1,14 +1,14 @@
-var mongoose = require('mongoose');
-mongoose.connect('localhost', 'test');
+
 var Application = require('hoist-model').Application;
 var Sanitizer = require('../sanitizer.js');
 var sanitizer = new Sanitizer();
 
-var ApplicationController = function () {
+// var ApplicationController = function () {
 
-};
+// };
 
-ApplicationController.prototype = {
+// ApplicationController.prototype = {
+  ApplicationController = {
   index: function (query) {
     var query = query || {deleted: false};
     return Application.findAsync(query);

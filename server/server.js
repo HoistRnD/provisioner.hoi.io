@@ -1,16 +1,20 @@
+'use strict';
 var Hapi = require('hapi');
 var OrganisationController = require('./controllers/organisation_controller.js');
 var UserController = require('./controllers/user_controller.js');
-var organisationController = new OrganisationController();
-var userController = new UserController();
+// var organisationController = new OrganisationController();
+// var userController = new UserController();
 var server = new Hapi.Server(3000);
-module.exports = server;
+
+var mongoose = require('mongoose');
+mongoose.connect('localhost', 'test');
+// module.exports = server;
 var organisationRoutes = require('./routes/organisations');
 var userRoutes = require('./routes/users');
 var applicationRoutes = require('./routes/apps');
 var handlebars = require('handlebars');
 var path = require('path');
-var HandlebarsHelpers = require('./handlebars_helpers.js');
+var handlebarsHelpers = require('./handlebars_helpers.js');
 
 
 server.views({
@@ -25,7 +29,7 @@ organisationRoutes(server);
 userRoutes(server);
 applicationRoutes(server);
 
-HandlebarsHelpers(handlebars);
+handlebarsHelpers(handlebars);
 
 server.route({
    method: 'GET',
@@ -53,10 +57,10 @@ server.route({
   path: '/',
   handler: function (request, reply) {
     var organisations;
-    return organisationController.index()
+    return OrganisationController.index()
     .then(function (orgs) {
       organisations = orgs;
-      return userController.index();
+      return UserController.index();
     }).then(function (users) {
       reply.view('welcome.hbs', {organisations: organisations, users: users, title: 'Home'}, {layout: 'layout'});
     }).catch(function (err) {
@@ -66,6 +70,24 @@ server.route({
 });
 
 //  server start =============================================================
-server.start(function () {
-  console.log('info', 'Server running at: ' + server.info.uri);
-});
+// server.start(function () {
+//   console.log('info', 'Server running at: ' + server.info.uri);
+// });
+
+
+// var start =  {
+//   start: function () {
+//     server.start(function () {
+//       console.log('info', 'Server running at: ' + server.info.uri);
+//     });
+//     mongoose.connect('localhost', 'test');
+//   }
+// };
+
+
+module.exports = server;
+
+
+
+
+

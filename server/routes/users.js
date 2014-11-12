@@ -1,7 +1,7 @@
 var UserController = require('../controllers/user_controller.js');
-var userController = new UserController();
+// var userController = new UserController();
 var OrganisationController = require('../controllers/organisation_controller.js');
-var organisationController = new OrganisationController();
+// var organisationController = new OrganisationController();
 var BBPromise = require('bluebird');
 var _ = require('lodash');
 
@@ -11,12 +11,12 @@ module.exports = function (server) {
   path: '/users/{name}',
   handler: function (request, reply) {
     var user;
-    userController.show({name: request.params.name})
+    UserController.show({name: request.params.name})
     .then(function(userResult) {
       user = userResult[0];
       var organisations = [];
       for (var i=0; i < user.organisations.length; i++) {
-        organisations.push(organisationController.show({_id: user.organisations[i]}));
+        organisations.push(OrganisationController.show({_id: user.organisations[i]}));
       }
       return BBPromise.all(organisations);
     }).then(function(orgs) {
@@ -30,7 +30,7 @@ server.route({
   method: 'GET',
   path: '/users/new',
   handler: function (request, reply) {
-    return organisationController.index()
+    return OrganisationController.index()
     .then(function (organisations) {
       reply.view('new_user.hbs', {organisations: organisations, title: 'New User' }, {layout: 'layout'});
     }).catch(function (err) {
@@ -43,7 +43,7 @@ server.route({
   method: 'POST',
   path: '/users/create',
   handler: function (request, reply) {
-    return userController.create(request.payload)
+    return UserController.create(request.payload)
     .then(function() {
       reply.redirect('/');
     }).catch(function (err) {
@@ -57,10 +57,10 @@ server.route({
   path: '/users/{name}/edit',
   handler: function (request, reply) {
     var user;
-    return userController.show({name: request.params.name})
+    return UserController.show({name: request.params.name})
     .then(function (userResult) {
       user = userResult[0];
-      return organisationController.index();
+      return OrganisationController.index();
     }).then(function (organisations) {
       reply.view('edit_user.hbs', {user: user, organisations: organisations, title: 'Edit ' + request.params.name }, {layout: 'layout'});
     });
@@ -71,7 +71,7 @@ server.route({
   method: 'POST',
   path: '/users/{name}/update',
   handler: function (request, reply) {
-    return userController.update({name: request.params.name, payload: request.payload})
+    return UserController.update({name: request.params.name, payload: request.payload})
     .then(function (user) {
       reply.redirect('/users/' + user[0].name);
     });
@@ -90,7 +90,7 @@ server.route({
   method: 'GET',
   path: '/users/{name}/delete',
   handler: function (request, reply) {
-    return userController.delete({name: request.params.name})
+    return UserController.delete({name: request.params.name})
     .then(function () {
       reply.redirect('/');
     });
