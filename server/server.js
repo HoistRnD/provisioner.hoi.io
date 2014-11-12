@@ -2,13 +2,7 @@
 var Hapi = require('hapi');
 var OrganisationController = require('./controllers/organisation_controller.js');
 var UserController = require('./controllers/user_controller.js');
-// var organisationController = new OrganisationController();
-// var userController = new UserController();
 var server = new Hapi.Server(require('config').get('Hoist.http.port'));
-
-var mongoose = require('mongoose');
-mongoose.connect('localhost', 'test');
-// module.exports = server;
 var organisationRoutes = require('./routes/organisations');
 var userRoutes = require('./routes/users');
 var applicationRoutes = require('./routes/apps');
@@ -69,25 +63,4 @@ server.route({
   }
 });
 
-//  server start =============================================================
-// server.start(function () {
-//   console.log('info', 'Server running at: ' + server.info.uri);
-// });
-
-
-// var start =  {
-//   start: function () {
-//     server.start(function () {
-//       console.log('info', 'Server running at: ' + server.info.uri);
-//     });
-//     mongoose.connect('localhost', 'test');
-//   }
-// };
-
-
 module.exports = server;
-
-
-
-
-
