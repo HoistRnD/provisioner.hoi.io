@@ -4,7 +4,7 @@ var OrganisationController = require('./controllers/organisation_controller.js')
 var UserController = require('./controllers/user_controller.js');
 // var organisationController = new OrganisationController();
 // var userController = new UserController();
-var server = new Hapi.Server(3000);
+var server = new Hapi.Server(require('config').get('Hoist.http.port'));
 
 var mongoose = require('mongoose');
 mongoose.connect('localhost', 'test');
