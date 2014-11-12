@@ -76,10 +76,7 @@ module.exports = {
   stop: function () {
     server.start(function () {
       mongoose.disconnect;
-      console.log('info', 'Server running at: ' + server.info.uri);
+      console.log('info', 'Server disconnected');
     });
   }
 }
-
-
-// module.exports = server;
