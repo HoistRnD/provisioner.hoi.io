@@ -13,7 +13,6 @@ OrganisationController = {
   show: function (query, key, value) {
     var key = key || 'deleted';
     var value = value || 'false';
-    console.log('show');
     return Organisation.find(query).where(key, value).exec();
   },
 
