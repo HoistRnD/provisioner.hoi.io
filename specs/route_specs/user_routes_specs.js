@@ -46,6 +46,8 @@ describe('routes: users', function () {
     });
 
     after(function (done) {
+      UserController.show.restore();
+      OrganisationController.show.restore();
       mongoose.disconnect(function () {
         delete mongoose.connection.db;
         done();
@@ -66,4 +68,67 @@ describe('routes: users', function () {
       expect(response.result).to.include('test@test.com');
     });
   });
+  
+  describe('GET /users/new', function () {
+    var response;
+    var server = require('../../server/server.js');
+    var $;
+    before(function (done) {
+      var organisationOne = {
+        name: 'test-organisation-one',
+        gitFolder: 'test folder'
+      };
+
+      var organisationTwo = {
+        name: 'test-organisation-two',
+        gitFolder: 'test folder'
+      };
+      sinon.stub(OrganisationController, 'index').returns(new BBPromise(function (resolve) {
+        resolve([organisationOne, organisationTwo]);
+      }));
+
+      server.inject({
+        method: 'GET',
+        url: '/users/new'
+      }, function (r) {
+        response = r;
+        $ = cheerio.load(response.result);
+        done();
+      });
+    });
+
+    after(function (done) {
+      OrganisationController.index.restore();
+      mongoose.disconnect(function () {
+        delete mongoose.connection.db;
+        done();
+      });
+    });
+
+    it('should return a 200 [ok] response', function () {
+      expect(response.statusCode).to.equal(200);
+    });
+
+    it('should display a form', function () {
+      expect($('form').length).to.equal(1);
+    });
+
+    it('should submit the form to /users/create', function () {
+      expect($('form').attr('action')).to.equal('/users/create');
+    });
+
+    it('should show dropdown for existing organisation in the form', function () {
+      var organisations = $('form').find('select.dropdown option');
+      expect(organisations.length).to.equal(3)
+    });
+
+    it('should show the existing organisations in the dropdown', function () {
+      var organisations = $('form').find('select.dropdown option');
+      // the first drop down option is a '-'
+      expect(organisations["1"].children[0].data).to.equal("test-organisation-one");
+      expect(organisations["2"].children[0].data).to.equal("test-organisation-two");
+    });
+
+  });
+
 });

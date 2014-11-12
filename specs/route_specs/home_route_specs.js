@@ -53,6 +53,8 @@ describe('routes: home', function () {
     });
 
     after(function (done) {
+      UserController.index.restore();
+      OrganisationController.index.restore();
       mongoose.disconnect(function () {
         delete mongoose.connection.db;
         done();
