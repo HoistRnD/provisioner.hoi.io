@@ -21,9 +21,12 @@ var User = require('hoist-model').HoistUser;
       name: options.name,
       organisations: [{_id: options.organisation}],
       emailAddresses: [{address: options.emailAddress}],
-      password: options.password
+      password: ""
     });
-    return newUser.saveAsync()
+    return newUser.setPassword(options.password)
+    .then(function (user) {
+      return user.saveAsync()
+    })
     .catch(function(err) {
       console.log(err);
     });
