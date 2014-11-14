@@ -44,7 +44,7 @@ server.route({
   path: '/users/create',
   handler: function (request, reply) {
     return UserController.create(request.payload)
-    .then(function(user) {
+    .then(function() {
       reply.redirect('/');
     }).catch(function (err) {
       console.log(err);
